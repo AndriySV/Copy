@@ -17,7 +17,6 @@ public class Main {
 	private void createContext() {
 		context = new ClassPathXmlApplicationContext("spring/config.xml");
 		
-		// h  gt
 		UserDao userDao = (UserDao) context.getBean("userDao");
 		
 	}
