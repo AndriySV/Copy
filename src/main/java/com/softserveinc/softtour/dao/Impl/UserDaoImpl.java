@@ -179,7 +179,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 
 	/**
 	 * Creates the query for finding objects 
-	 * @param columnName - name of the column which we write into condition WHERE
+	 * @param columnName - name of the colunm which we write into condition WHERE
 	 * @param length - length of vararg's elements
 	 * @return query for finding objects 
 	 */
