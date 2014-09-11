@@ -80,23 +80,23 @@ public class Main {
 	private void start() {
 		
 		//testUser();
-		//testFavorite();
+		testFavorite();
 		
 	}
 
 	private void testFavorite() {
-		//favoriteService.save(Date.valueOf("2014-08-10"), userService.findById(1), tourService.findById(1));
+		favoriteService.save(Date.valueOf("2014-08-11"), userService.findById(18), tourService.findById(2));
 		//favoriteService.update(9, Date.valueOf("2014-09-10"), userService.findById(1), tourService.findById(1));
 		//favoriteService.delete(10);
 		//User user = userService.findById(2);
 		//System.out.println(user.getName());
-		//List<Favorite> list1 = favoriteService.getAll();
+		List<Favorite> list = favoriteService.getAll();
 		
 		//List<Favorite> list = favoriteService.findByDate(Date.valueOf("2014-09-04"), Date.valueOf("2014-09-10"));
 		//List<Favorite> list = favoriteService.findByUser(userService.findById(1), userService.findById(2));
 		//List<Favorite> list = favoriteService.findByTour(tourService.findById(1), tourService.findById(2));
 		
-		//showList(list);
+		showList(list);
 	}
 
 	private void testUser() {
