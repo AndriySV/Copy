@@ -80,33 +80,34 @@ public class Main {
 	private void start() {
 		
 		//testUser();
-		testFavorite();
+		//testFavorite();
 		
 	}
 
 	private void testFavorite() {
-		favoriteService.save(Date.valueOf("2014-08-11"), userService.findById(18), tourService.findById(2));
+		//favoriteService.save(Date.valueOf("2014-08-10"), userService.findById(1), tourService.findById(1));
 		//favoriteService.update(9, Date.valueOf("2014-09-10"), userService.findById(1), tourService.findById(1));
 		//favoriteService.delete(10);
 		//User user = userService.findById(2);
 		//System.out.println(user.getName());
-		List<Favorite> list = favoriteService.getAll();
+		//List<Favorite> list1 = favoriteService.getAll();
 		
 		//List<Favorite> list = favoriteService.findByDate(Date.valueOf("2014-09-04"), Date.valueOf("2014-09-10"));
 		//List<Favorite> list = favoriteService.findByUser(userService.findById(1), userService.findById(2));
 		//List<Favorite> list = favoriteService.findByTour(tourService.findById(1), tourService.findById(2));
 		
-		showList(list);
+		//showList(list);
 	}
 
 	private void testUser() {
-	//	userService.save("Rianna", "diamont@com", "2222", Date.valueOf("1983-02-15"), (byte)31, Sex.FEMALE, "775577", roleService.findById(3));
+		userService.save("Pink", "try@com", "1234", Date.valueOf("1979-09-08"), (byte)35, Sex.FEMALE, "775511", roleService.findById(1));
 		//userService.update(3, "Ivan", "iv@com", "1111", Date.valueOf("2014-09-11"), (byte)16, Sex.MALE, "123456", roleService.findById(2));
 		//userService.delete(3);
 		//User user = userService.findById(2);
 		//System.out.println(user);
+		//List<User> list = userService.getAll();
 		
-		List<User> list = userService.findByName("Andriy", "Kate", "pink");
+		//List<User> list = userService.findByName("Andriy", "Kate");
 		//List<User> list = userService.findByEmail("iv@com", "elips@gmail.com");
 		//List<User> list = userService.findByPassword("1111", "2222");
 		//List<User> list = userService.findByBirthday(Date.valueOf("1990-06-12"), Date.valueOf("1987-11-24"));
@@ -114,9 +115,8 @@ public class Main {
 		//List<User> list = userService.findBySex(Sex.MALE);
 		//List<User> list = userService.findByPhone("123456", "+380958000877");
 		//List<User> list = userService.findByRole(roleService.findById(2), roleService.findById(3));
-		
-		//List<User> list = userService.getAll();
-		showList(list);		
+
+		//showList(list);		
 	}
 
 	/**
