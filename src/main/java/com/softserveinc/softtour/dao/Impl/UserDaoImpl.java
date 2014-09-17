@@ -3,7 +3,12 @@ package com.softserveinc.softtour.dao.Impl;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.softserveinc.softtour.dao.UserDao;
 import com.softserveinc.softtour.entity.Role;
@@ -14,7 +19,12 @@ import com.softserveinc.softtour.entity.template.Sex;
  * @author Andriy
  * 	Contains the methods for work with table User in the SoftTour database
  */
+@Repository
+@Service
 public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
+	
+	@PersistenceContext
+	private EntityManager entityManager;
 	
 	/**
 	 * Saves the object user to the table User
@@ -23,7 +33,8 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	public void save(String name, String email, String password, Date birthday,
 			byte age, Sex sex, String phone, Role role) {
 		User user = new User(name, email, password, birthday, age, sex, phone, role);
-		getHibernateTemplate().save(user);
+		
+		entityManager.persist(user);
 	}
 
 	/**

@@ -2,13 +2,26 @@ package com.softserveinc.softtour.dao.Impl;
 
 import com.softserveinc.softtour.dao.RoleDao;
 import com.softserveinc.softtour.entity.Role;
+
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+@Repository
+@Service
 public class RoleDaoImpl extends HibernateDaoSupport implements RoleDao {
-    @Override
+   
+	@PersistenceContext
+	private EntityManager entityManager;
+	
+	@Override
     public void save(String name){
         Role role = new Role(name);
         getHibernateTemplate().save(role);
@@ -34,8 +47,9 @@ public class RoleDaoImpl extends HibernateDaoSupport implements RoleDao {
     }
     @Override
     public Role findById(long id){
-        Role role = (Role) getHibernateTemplate().get(Role.class, id);
-        return role;
+       // Role role = (Role) getHibernateTemplate().get(Role.class, id);
+       Role role = entityManager.find(Role.class, id);
+    	return role;
     }
     @Override
     public List<Role> findByName(String name){
