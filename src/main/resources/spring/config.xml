@@ -131,7 +131,6 @@
 	
 	<bean id="tourService" class="com.softserveinc.softtour.service.Impl.TourServiceImpl">
 		<property name="tourDao" ref="tourDao" />
-		
 	</bean>
 	
 </beans>
