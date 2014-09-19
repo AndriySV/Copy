@@ -1,6 +1,6 @@
-package com.softserveinc.softtour.dao.Impl;
+package com.softserveinc.softtour.repository.Impl;
 
-import com.softserveinc.softtour.dao.RoleDao;
+import com.softserveinc.softtour.repository.RoleDao;
 import com.softserveinc.softtour.entity.Role;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 

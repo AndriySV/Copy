@@ -1,6 +1,6 @@
-package com.softserveinc.softtour.dao.Impl;
+package com.softserveinc.softtour.repository.Impl;
 
-import com.softserveinc.softtour.dao.HistoryRecordsDao;
+import com.softserveinc.softtour.repository.HistoryRecordsDao;
 import com.softserveinc.softtour.entity.HistoryRecord;
 import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.entity.User;

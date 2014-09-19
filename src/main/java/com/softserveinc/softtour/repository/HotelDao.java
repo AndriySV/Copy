@@ -1,8 +1,11 @@
-package com.softserveinc.softtour.dao;
+package com.softserveinc.softtour.repository;
 
 import com.softserveinc.softtour.entity.Hotel;
 import com.softserveinc.softtour.entity.Region;
+
 import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
 
 /**
  * Created by oleksandrgasenuk on 04.09.14.

@@ -1,4 +1,4 @@
-package com.softserveinc.softtour.dao;
+package com.softserveinc.softtour.repository;
 
 import com.softserveinc.softtour.entity.HistoryRecord;
 import com.softserveinc.softtour.entity.Tour;

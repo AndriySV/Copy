@@ -1,7 +1,7 @@
-package com.softserveinc.softtour.dao.Impl;
+package com.softserveinc.softtour.repository.Impl;
 
 
-import com.softserveinc.softtour.dao.RegionDao;
+import com.softserveinc.softtour.repository.RegionDao;
 import com.softserveinc.softtour.entity.Country;
 import com.softserveinc.softtour.entity.Region;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;

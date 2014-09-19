@@ -1,7 +1,11 @@
-package com.softserveinc.softtour.dao;
+package com.softserveinc.softtour.repository;
 
 import java.sql.Date;
 import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.softserveinc.softtour.entity.Role;
 import com.softserveinc.softtour.entity.User;
@@ -11,29 +15,34 @@ import com.softserveinc.softtour.entity.template.Sex;
  *  @author Andriy
  * 	Contains the methods for work with table User in the SoftTour database
  */
-public interface UserDao {
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
 	
 	/**
 	 * Saves the object user to the table User
 	 */
+	//@Query("INSERT INTO User(name, email) VALUES(?1, ?2)")
 	public void save(String name, String email, String password, Date birthday, byte age, Sex sex, String phone, Role role);
 
 	/**
 	 *  Updates the object user with the specified id
 	 *  id - id of the object user which will updated
 	 */
+	//@Query
 	public void update(long id, String name, String email, String password, Date birthday, byte age, Sex sex, String phone, Role role);
 	
 	/**
 	 *  Deletes the object user with the specified id
 	 *  id - id of the object user which will deleted
 	 */
+	//@Query
 	public void delete(long id);
 	
 	/**
 	 *  Returns the object user with the specified id
 	 *  id - id of the object user which will returned
 	 */
+	@Query("SELECT u FROM User a WHERE u.id = ?1")
 	public User findById(long id);
 	
 	/**

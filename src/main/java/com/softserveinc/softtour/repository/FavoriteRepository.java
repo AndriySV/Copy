@@ -1,4 +1,4 @@
-package com.softserveinc.softtour.dao;
+package com.softserveinc.softtour.repository;
 
 import com.softserveinc.softtour.entity.Favorite;
 import com.softserveinc.softtour.entity.Tour;
@@ -7,27 +7,34 @@ import com.softserveinc.softtour.entity.User;
 import java.sql.Date;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 /**
  * @author Andriy
  * Contains the methods for work with table Favorite in the SoftTour database
  */
-public interface FavoriteDao {
+@Repository
+public interface FavoriteRepository extends JpaRepository<Favorite, Long>{
 	
 	/**
 	 * Saves the object favorite to the table Favorite
 	 */
+	//@Query
 	public void save(Date date, User user, Tour tour);
 	
 	/**
 	 *  Updates the object favorite with the specified id
 	 *  id - id of the object favorite which will be updated
 	 */
+	//@Query
 	public void update(long id, Date date, User user, Tour tour);
 	
 	/**
 	 *  Deletes the object favorite with the specified id
 	 *  id - id of the object favorite which will be deleted
 	 */
+	//@Query
 	public void delete(long id);
 	
 	/**

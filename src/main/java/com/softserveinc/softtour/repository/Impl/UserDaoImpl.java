@@ -1,25 +1,31 @@
-package com.softserveinc.softtour.dao.Impl;
+package com.softserveinc.softtour.repository.Impl;
 
 import java.sql.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-import com.softserveinc.softtour.dao.UserDao;
+import com.softserveinc.softtour.repository.UserRepository;
 import com.softserveinc.softtour.entity.Role;
 import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.entity.template.Sex;
+
+
+// NEED TO DELET THIS CLASS !!!
+
 
 /**
  * @author Andriy
  * 	Contains the methods for work with table User in the SoftTour database
  */
-public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
+public class UserDaoImpl extends HibernateDaoSupport {
 	
 	/**
 	 * Saves the object user to the table User
 	 */
-	@Override
 	public void save(String name, String email, String password, Date birthday,
 			byte age, Sex sex, String phone, Role role) {
 		User user = new User(name, email, password, birthday, age, sex, phone, role);
@@ -30,7 +36,6 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	 *  Updates the object user with the specified id
 	 *  id - id of the object user which will updated
 	 */
-	@Override
 	public void update(long id, String name, String email, String password,
 			Date birthday, byte age, Sex sex, String phone, Role role) {
 		
@@ -56,7 +61,6 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	 *  Deletes the object user with the specified id
 	 *  id - id of the object user which will deleted
 	 */
-	@Override
 	public void delete(long id) {
 		User user = (User) getHibernateTemplate().get(User.class, id);
 		if (user != null) {
@@ -70,7 +74,6 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	 *  Returns the object user with the specified id
 	 *  id - id of the object user which will returned
 	 */
-	@Override
 	public User findById(long id) {
 		User user = (User) getHibernateTemplate().get(User.class, id);
 		
@@ -80,7 +83,6 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	/**
 	 *  Returns list of the objects user with the specified name or names
 	 */
-	@Override
 	public List<User> findByName(String...name) {
 		String queryFindByName = createQuery("name", name.length);
 		
@@ -91,7 +93,6 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	/**
 	 *  Returns list of the objects user with the specified email or emails
 	 */
-	@Override
 	public List<User> findByEmail(String... email) {
 		String queryFindByEmail = createQuery("email", email.length);
 		
@@ -102,7 +103,6 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	/**
 	 *  Returns list of the objects user with the specified password or passwords
 	 */
-	@Override
 	public List<User> findByPassword(String... password) {
 		String queryFindByPassword = createQuery("password", password.length);
 		
@@ -113,7 +113,6 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	/**
 	 *  Returns list of the objects user with the specified birthday or birthdays
 	 */
-	@Override
 	public List<User> findByBirthday(Date... birthday) {
 		String queryFindByBirthday = createQuery("birthday", birthday.length);
 		
@@ -124,7 +123,6 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	/**
 	 *  Returns list of the objects user with the specified age
 	 */
-	@Override
 	public List<User> findByAge(Byte... age) {
 		String queryFindByAge = createQuery("age", age.length);
 		
@@ -135,7 +133,6 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	/**
 	 *  Returns list of the objects user with the specified sex
 	 */
-	@Override
 	public List<User> findBySex(Sex sex) {
 		String queryFindByAge = "FROM User WHERE sex = ?";
 		
@@ -146,7 +143,6 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	/**
 	 *  Returns list of the objects user with the specified phone or phones
 	 */
-	@Override
 	public List<User> findByPhone(String...phone) {
 		String queryFindByPhone = createQuery("phone", phone.length);
 		
@@ -157,7 +153,6 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	/**
 	 *  Returns the list of the objects user which contain the specified object or objects role
 	 */
-	@Override
 	public List<User> findByRole(Role...role) {
 		String queryFindByRole = createQuery("role_id", role.length);
 		
@@ -168,7 +163,6 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	/**
 	 *  Returns the list of all objects user which are contained in the table User
 	 */
-	@Override
 	public List<User> getAll() {
 		String queryGetAll = "From User";
 		@SuppressWarnings("unchecked")

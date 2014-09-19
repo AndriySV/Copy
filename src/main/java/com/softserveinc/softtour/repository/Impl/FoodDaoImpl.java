@@ -1,6 +1,6 @@
-package com.softserveinc.softtour.dao.Impl;
+package com.softserveinc.softtour.repository.Impl;
 
-import com.softserveinc.softtour.dao.FoodDao;
+import com.softserveinc.softtour.repository.FoodDao;
 import com.softserveinc.softtour.entity.Food;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
