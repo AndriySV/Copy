@@ -11,8 +11,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/bootstrap-theme.css" rel="stylesheet">
 <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-
-
+<link rel="stylesheet" href="css/feedback.css"/>
 
 </head>
 <body bgcolor="#c0c0c0">
@@ -49,18 +48,39 @@
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
             </nav>
-            <div class="row">
-                <div class="col-md-3 imgfont"  style="margin-left:50px;" ><img src="img/egypt_logo.png"><br>Єгипет</div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3 imgfont"><img src="img/greece_logo.png"><br>Греція</div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3 imgfont"><img src="img/turkey_logo.png"><br>Туреччина</div>
-                <div class="col-md-1"></div>
-        </div>
+			
+			<!-- Form -->
+			
+   			<div id="left_right_container">
+                <div id="left_div">
+                <form method="post" ectype="text/plain" action="mailto:yurivalkiv@gmail.com"name="form" onsubmit="return checkForm('user_name','user_email','user_area')">
+					<p class="form_p"><legend>Форма зворотнього зв'язку</legend>
+                	<p class="form_p"><input type="text" id="user_name" class="input_overall" name="user_name" placeholder="Введіть Ваше ім'я:" /></p>
+                    <p class="form_p"><input type="text" id="user_email" class="input_overall" name="user_email" placeholder="Введіть Ваш e-mail:" /></p>
+                    <p class="form_p"><select name="user_select" id="user_select" class="input_overall" size="1">
+                    	<option value="1" class="option_style">Технічна несправність сайту</option>
+                        <option value="2" class="option_style">Оформлення сайту</option>
+                        <option value="3" class="option_style">Інше</option>
+                    </select></p>
+                    <p class="form_p"><textarea name="user_area" id="user_area" class="input_overall" wrap="virtual" placeholder="Коментар:" style="height:100px"></textarea></p>
+                    <p class="form_p"><input type="submit" name="user_submit" class="submit_button" value="Надіслати"/></p>
+                </form>
+				</div>
+				
+				<div id="right_div">
+                <span><img src="img/image1.jpg" class="user_img"></span><br>
+                <span><img src="img/image2.jpg" class="user_img"></span><br>
+                <span><img src="img/image3.jpg" class="user_img"></span><br>
+                <span><img src="img/image4.jpg" class="user_img"></span><br>
+                <span><img src="img/image5.jpg" class="user_img"></span><br>
+				</div>
+			</div>	
     </div><!--блок "контент"-->
     </div>
     <footer></footer>
-     <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/feedback.js"></script>
+
 </body>
 </html>

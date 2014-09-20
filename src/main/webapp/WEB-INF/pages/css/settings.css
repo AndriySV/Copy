@@ -43,7 +43,7 @@ body {
 }
 
 
-.form {
+.formstyle {
     background-color:  rgba(160, 210, 155, 0.4);
     font-family: serif;
     text-align: center;
@@ -59,4 +59,7 @@ p {
 }
 .mycarousel{
     height: 305px    ;
+}
+.center {
+    text-align: center;
 }
