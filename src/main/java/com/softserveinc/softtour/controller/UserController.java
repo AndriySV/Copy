@@ -53,6 +53,15 @@ public class UserController {
 		return "index";
 	}
 	
+	@RequestMapping(value="/update", method=RequestMethod.GET)
+	public String updateUser(User user, @RequestParam String sexString) {
+		
+	
+		
+		
+		return "userProfile";
+	}
+	
 	/**
 	 * Defines the sex for user
 	 * @param sexString - it's string which contains the value male or female
