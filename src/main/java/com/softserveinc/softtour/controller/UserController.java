@@ -23,71 +23,32 @@ public class UserController {
 	private UserService userService;
 	
 	@RequestMapping(value="/save", method=RequestMethod.GET)
-	public String saveUser(@RequestParam String name, 
-			@RequestParam String email,
-			@RequestParam String password,
-			@RequestParam String birthday,
-			@RequestParam String sex,
-			@RequestParam String phone ) {
+	public String saveUser(User user ) {
+		
+		// Need to check  the type which is returned by jsp !!! 
+		//user.setBirthday(birthday);
 		
 		// Need to count age
 		byte age = 0;
+		user.setAge(age);
+		
+		//Need to set sex
+		Sex sex = null;
+		user.setSex(sex);
 		
 		// Need to define role
 		Role role = null;
-		//userService.save(name, email, password, Date.valueOf(birthday), age, Sex.FEMALE, phone, role);
+		
+		userService.save(user);
+		
+		
+		/*(user.getName(), user.getEmail(), user.getPassword(), 
+				Date.valueOf(birthday), age, Sex.FEMALE, phone, role);
+		*/
+		
 		
 		return "/";
 	}
 	
-	
-	@RequestMapping(value="/all")
-	public @ResponseBody List<User> showAll() {
-		
-		Role role = new Role();
-		role.setId(1);
-		role.setName("admin");
-		User user = new User("Ronaldinyo", "ronald@gmail", "football2", Date.valueOf("1972-12-03"), (byte)43, Sex.MALE, "0957744565", role);
-		
-		//userService.save(user);
-		
-		//userService.update(19, "Ronaldo", "teeth", "1111", Date.valueOf("1962-12-03"), (byte)49, Sex.MALE, "doesn't", role);
-		
-		//userService.delete(16);
-		
-		//user = userService.findById(18);
-		//System.out.println(user);
-		//System.out.println("---------------------------------");
-		
-		//List<User> list = userService.findBy("Pepe", null, "1111");
-		
-		
-		
-		
-		List<User> list = userService.findAll();
-		show(list);
-
-		return userService.findAll();
-	}
-
-	@RequestMapping(value="/find", method=RequestMethod.GET)
-	public @ResponseBody  List<User> find(User user) {
-		
-	List<User> list = userService.findByAnyParameters(user.getId(), user.getName(), 
-			user.getEmail(), user.getPassword(), user.getBirthday(), user.getAge(), 
-			user.getSex(), user.getPhone(), user.getRole());
-		
-	show(list);
-		
-		return userService.findAll();
-	}
-	
-	
-	private void show(List<User> list) {
-
-		for (User user : list) {
-			System.out.println(user);
-		}
-	}
 	
 }
