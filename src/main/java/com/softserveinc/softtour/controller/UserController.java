@@ -19,7 +19,7 @@ import com.softserveinc.softtour.service.UserService;
 /**
  * @author Andriy
  * Processes user's data
- * REMOTE
+ * REMOTE 22
  */
 @Controller
 @RequestMapping(value="/user")
