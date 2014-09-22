@@ -22,7 +22,7 @@ import com.softserveinc.softtour.service.FavoriteService;
 public class FavoriteController {
 	
 	/**
-	 * Creates the object of the FavoriteServiceImpl class 
+	 *  Creates the object of the FavoriteServiceImpl class 
 	 */
 	@Autowired
 	private FavoriteService favoriteService;
