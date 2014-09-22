@@ -3,7 +3,7 @@
 
     <!-- Form -->
     <div class="col-md-6 form">
-        <form class="form-horizontal">
+        <form class="form-horizontal" name="form" onsubmit="return checkForm('user_name','user_email','user_area')">
             <fieldset>
                 <legend>Форма зворотнього зв'язку</legend>
 

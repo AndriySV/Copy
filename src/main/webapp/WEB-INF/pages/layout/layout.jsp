@@ -40,7 +40,9 @@
 <script src="js/selector.js"></script>
 <script src="js/registrationControl.js"></script>
 <script src="js/feedback.js"></script>
+<script src="js/modal.js"></script>
 <script src="js/select2.min.js"></script>
 <script src="js/star-rating.min.js"></script>
+<script src="js/hotels.js"></script>
 </body>
 </html>
