@@ -19,7 +19,6 @@ import com.softserveinc.softtour.service.UserService;
 /**
  * @author Andriy
  * Processes user's data
- * 
  */
 @Controller
 @RequestMapping(value="/user")
