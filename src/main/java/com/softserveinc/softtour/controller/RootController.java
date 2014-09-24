@@ -7,19 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //@RequestMapping(value = "/")
 public class RootController {
 
-    @RequestMapping(value = "/")
-    public String homePage() {
-        return "index";
-    }
+
 
     @RequestMapping(value = "/search")
     public String searchPage() {
         return "search";
-    }
-
-    @RequestMapping(value = "/registration")
-    public String registrationPage() {
-        return "registration";
     }
 
     @RequestMapping(value = "/about")
@@ -36,7 +28,7 @@ public class RootController {
     public String feedback() {
         return "feedback";
     }
-    
+
     @RequestMapping(value = "/hotels")
     public String hotels() {
         return "hotels";

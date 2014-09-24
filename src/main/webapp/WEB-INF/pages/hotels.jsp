@@ -20,38 +20,30 @@
 
             <div id="collapseFilter" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <select class="form-control filter-element">
-                        <option selected="selected" value="338">Египет</option>
-                        <option value="318">Турция</option>
-                        <option value="16">ОАЭ</option>
-                        <option value="372">Греция</option>
-                    </select>
-                    <select class="form-control filter-element">
-                        <option selected="selected" value="0">Все регионы</option>
-                        <option value="5486">Дахаб</option>
-                        <option value="2">Макади Бей</option>
+                    <select id="countrySelect2" class="select2-offscreen filter-element">
+                        <option></option>
                     </select>
 
                     <form>
-                        <p class="muted">Загальний рейтинг</p>
+                        <label for="rating" class="muted">Рейтинг</label>
                         <input id="rating" value="0" type="number" class="rating" min=0 max=5 step=1
                                data-size="xs"
                                data-show-clear="false" data-show-caption="false">
                     </form>
                     <form>
-                        <p class="muted">Комфорт</p>
+                        <label for="comfort" class="muted">Комфорт</label>
                         <input id="comfort" value="0" type="number" class="rating" min=0 max=5 step=1
                                data-size="xs"
                                data-show-clear="false" data-show-caption="false">
                     </form>
                     <form>
-                        <p class="muted">Чистота</p>
+                        <label for="cleanliness" class="muted">Чистота</label>
                         <input id="cleanliness" value="0" type="number" class="rating" min=0 max=5 step=1
                                data-size="xs"
                                data-show-clear="false" data-show-caption="false">
                     </form>
                     <form>
-                        <p class="muted">Розташування</p>
+                        <label for="location" class="muted">Розташування</label>
                         <input id="location" value="0" type="number" class="rating" min=0 max=5 step=1
                                data-size="xs"
                                data-show-clear="false" data-show-caption="false">
@@ -62,13 +54,13 @@
                                data-size="xs"
                                data-show-clear="false" data-show-caption="false">
                     </form>
-                    <button type="button" class="btn btn-default btn-block filter-element">Пошук</button>
+                    <button id="search_hotel" type="button" class="btn btn-default btn-block filter-button" onclick="searchHotels()">Пошук</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-1"></div>
-    <div class="col-md-9 hotels-result">
+    <div id="hotels-result" class="col-md-9 hotels-result">
         <jsp:include page="hotelResult.jsp"></jsp:include>
     </div>
 </div>

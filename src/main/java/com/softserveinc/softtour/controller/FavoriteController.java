@@ -22,13 +22,13 @@ import com.softserveinc.softtour.service.FavoriteService;
 public class FavoriteController {
 	
 	/**
-	 *  Creates the object of the FavoriteServiceImpl class 
+	 * Creates the object of the FavoriteServiceImpl class 
 	 */
 	@Autowired
 	private FavoriteService favoriteService;
 
 	/**
-	 *  Saves the object user to the table User
+	 * Saves the object user to the table User
 	 */
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	public String save(Favorite favorite) {
