@@ -19,7 +19,7 @@ function registrationControl(name, email, password, confirmPassword, birthday, p
 		return false;
 	}
 
-	RegExp regExp = new RegExp("[A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z]{2,4}");
+	/*RegExp regExp = new RegExp("[A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z]{2,4}");
 	var validEmail = regExp.exec(email);
 	alert("QQQ:" + validEmail);
 	return false;
@@ -27,7 +27,7 @@ function registrationControl(name, email, password, confirmPassword, birthday, p
 //		alert("Ви ввели некоректний email !");	
 //		return false;
 //	} 
-	
+*/	
 	if (6 > password.length || password.length > 10) {
 		alert("Ви ввели некоректний пароль ! \n" +
 		"Пароль повинен містити від 6 до 10 символів !");
