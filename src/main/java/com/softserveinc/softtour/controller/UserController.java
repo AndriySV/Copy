@@ -62,6 +62,7 @@ public class UserController {
 		if (bindingResult.hasErrors()) {
 			return "registration";
 		} else {
+			
 			user.setAge(calculateAge(user.getBirthday()));
 			user.setRole(roleService.findByName("registeredUser"));
     		userService.save(user);
