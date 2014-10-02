@@ -1,10 +1,13 @@
 package com.softserveinc.softtour.controller;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.softserveinc.softtour.entity.Password;
 import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.service.RoleService;
 import com.softserveinc.softtour.service.UserService;
@@ -41,7 +45,13 @@ public class UserController {
 	 */
 	@RequestMapping(value="/userRegistration")
 	public String createUserProfile(Model model){
-		model.addAttribute(new User());
+		//model.addAttribute(new User(), new Password());
+		List<Object> list = new ArrayList<Object>();
+		list.add(new User());
+		list.add( new Password());
+		
+		model.addAllAttributes(list);
+		
 		return "registration";
 	}
 	
@@ -51,7 +61,7 @@ public class UserController {
 	 * @return the name which redirect to the page registration.jsp or userProfile.jsp
 	 */
 	@RequestMapping(value="/userSave", method=RequestMethod.POST)
-	public String save(User user, BindingResult bindingResult) {
+	public String save(User user, Password password, BindingResult bindingResult) {
 		
 		UserValidator userValidator = new UserValidator();
 		
@@ -61,7 +71,26 @@ public class UserController {
 		if (bindingResult.hasErrors()) {
 			return "registration";
 		} else {
+			
+			String passwordStr = password.getPassword();
+			PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String hashedPassword = passwordEncoder.encode(passwordStr);
+			
+			password.setPassword(hashedPassword);
+			
+			System.out.println(hashedPassword);
+			System.out.println(hashedPassword.length());
+			
+			//user.setPassword(hashedPassword);
 			user.setAge(calculateAge(user.getBirthday()));
+			
+			
+			//FIXME  change  !!!
+			Password p = new Password();
+			p.setId(3);
+			p.setPassword("AAAAAAAAAAAAAAAAA");
+			
+			user.setPassword(p);
 			user.setRole(roleService.findByName("registeredUser"));
     		userService.save(user);
         	
@@ -114,12 +143,12 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	/**
+/*	*//**
 	 * Returns the list of the user's objects with the specified parameters
 	 * @param user - contains the parameters to search
 	 * @param model - it's response in which we write the user's object with the specified id
 	 * @return  the name which redirect to the main page 
-	 */
+	 *//*
 	@RequestMapping(value="/userFindByAnyParameters")
 	public String findByAnyParameters(User user, Model model) {
 		
@@ -129,7 +158,7 @@ public class UserController {
 		
 		model.addAttribute("users", list);
 		return "redirect:/";
-	}
+	}*/
 
 	/**
 	 * Returns the list of all user's objects which are contained in the table User

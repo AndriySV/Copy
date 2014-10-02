@@ -14,7 +14,8 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-theme.css" rel="stylesheet">
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="css/profileStyle.css" rel="stylesheet">
+    <link href="<c:url value = "/WEB-INF/pages/css/profileStyle.css"/>" rel="stylesheet">
+    
     <link href="css/datepicker.css" rel="stylesheet">
     <link href="css/feedback.css" rel="stylesheet"/>
     <link href="css/select2.css" rel="stylesheet"/>

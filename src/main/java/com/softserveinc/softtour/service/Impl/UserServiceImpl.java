@@ -44,8 +44,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(readOnly=false)
 	public void update(long id,User user) {
-		userRepository.update( id, user.getName(), user.getEmail(), user.getPassword(), 
-				user.getBirthday(), user.getAge(), user.getSex(), user.getPhone(), user.getRole());
+	/*	userRepository.update( id, user.getName(), user.getEmail(), user.getPassword(), 
+				user.getBirthday(), user.getAge(), user.getSex(), user.getPhone(), user.getRole());*/
 	}
 
 	/**

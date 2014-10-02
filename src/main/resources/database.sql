@@ -11,18 +11,27 @@ CREATE TABLE role (
 
 );
 
+CREATE TABLE password (
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  password varchar(100) NOT NULL,
+  
+  PRIMARY KEY (id)
+
+);
+
 CREATE TABLE user (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   name varchar(30) NOT NULL UNIQUE,
   email varchar(30) NOT NULL UNIQUE,
-  password varchar(30) NOT NULL,
   birthday date NOT NULL,
   age tinyint(3) unsigned NOT NULL,
   sex enum('MALE','FEMALE') NOT NULL,
   phone varchar(20) DEFAULT NULL,
+  password_id bigint(20) NOT NULL UNIQUE,
   role_id bigint(20) NOT NULL,
 
   PRIMARY KEY (id),
+  FOREIGN KEY (password_id) REFERENCES password (id),
   FOREIGN KEY (role_id) REFERENCES role (id)
 
 );
