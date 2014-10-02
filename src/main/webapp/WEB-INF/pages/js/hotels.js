@@ -1,3 +1,5 @@
+var ALL_COUNTRIES = "allCountries";
+
 function openModalWindow() {
     $('#myModal').modal('show');
 }
@@ -6,55 +8,73 @@ function closeModalWindow() {
     $('#myModal').modal('hide');
 }
 
-function setData() {
+$(".hotel_search").on("submit", function (e) {
+    e.preventDefault();
+});
 
-}
-function searchHotels() {
-
+function searchByName() {
     var queryObj = {};
-
-    queryObj.country = $("#countrySelect2").val();
-    queryObj.rating = $("#rating").val();
-    queryObj.comfort = $("#comfort").val();
-    queryObj.cleanliness = $("#cleanliness").val();
-    queryObj.location = $("#location").val();
-    queryObj.valueForMoney = $("#value_for_money").val();
-
+    queryObj.name = $("#searchHotelByName").val();
     $.ajax({
-        url: "/hotels/result",
+        url: "/hotels/search",
         type: "GET",
         data: queryObj,
         dataType: 'json',
 
         success: function (data) {
 
-            var len = data.length;
-            for (var i = 0; i < len; i++) {
-                $("#hotel" + i).html(data[i].name);
-                $("#hotelImg" + i).attr("src", data[i].imgUrl);
-                $("#hotelName" + i).html("  " + data[i].name);
-                $("#hotelRegion" + i).html("  " + data[i].region.name);
-                $("#hotelCountry" + i).html("  " + data[i].region.country.name);
-                $("#hotelRating" + i).html("  " + data[i].rating);
-                $("#hotelComfort" + i).html("  " + data[i].comfort);
-                $("#hotelLocation" + i).html("  " + data[i].location);
-                $("#hotelCleanliness" + i).html("  " + data[i].cleanliness);
-                $("#hotelValueForMoney" + i).html("  " + data[i].valueForMoney);
-            }
+            $('#hotelResult').empty();
+            $.each(data, function (key, value) {
+
+                $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
+            })
         },
 
         error: function () {
             alert("ERROR");
         }
+    });
+}
 
+function searchHotels() {
 
+    var query = {};
+    query.country = '';
 
+    var country = $('#countrySelect2').val();
+    $.each(country, function(key, value){
+        query.country+=value + ",";
+    })
+
+    query.rating = $("#rating").val();
+    query.comfort = $("#comfort").val();
+    query.cleanliness = $("#cleanliness").val();
+    query.location = $("#location").val();
+    query.valueForMoney = $("#value_for_money").val();
+
+    $.ajax({
+        url: "/hotels/result",
+        type: "GET",
+        data: query,
+        dataType: 'json',
+
+        success: function (data) {
+            $('#hotelResult').empty();
+            $.each(data, function (key, value) {
+
+                $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
+            })
+        },
+
+        error: function () {
+            alert("ERROR");
+        }
     });
 }
 
 $(document).ready(function () {
 
-    $("#countrySelect2").select2({
+    $("#countrySelect2").val(["AllCountry"]).select2({
         placeholder: "Оберіть країну",
         allowClear: true
     });
@@ -62,36 +82,25 @@ $(document).ready(function () {
     $.getJSON('/hotels/allCountry', {
         ajax: 'true'
     }, function (country) {
+
         var html = ' ';
         var len = country.length;
+
         for (var i = 0; i < len; i++) {
             html += '<option value="' + country[i].name + '">'
                 + country[i].name + '</option>';
         }
+
         $('#countrySelect2').html(html);
     });
-
-    $.get("hotelResult.html", function (data) {
-        $("#hotels-result").append(data);
-    });
-
 
     $.getJSON('/hotels/all', {
         ajax: 'true'
     }, function (hotel) {
-        var len = hotel.length;
-        for (var i = 0; i < len; i++) {
-            $("#hotel" + i).html(hotel[i].name);
-            $("#hotelImg" + i).attr("src", hotel[i].imgUrl);
-            $("#hotelName" + i).append("  " + hotel[i].name);
-            $("#hotelRegion" + i).append("  " + hotel[i].region.name);
-            $("#hotelCountry" + i).append("  " + hotel[i].region.country.name);
-            $("#hotelRating" + i).append("  " + hotel[i].rating);
-            $("#hotelComfort" + i).append("  " + hotel[i].comfort);
-            $("#hotelLocation" + i).append("  " + hotel[i].location);
-            $("#hotelCleanliness" + i).append("  " + hotel[i].cleanliness);
-            $("#hotelValueForMoney" + i).append("  " + hotel[i].valueForMoney);
-        }
-    });
 
+        $.each(hotel, function (key, value) {
+
+            $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
+        })
+    })
 });

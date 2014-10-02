@@ -62,13 +62,25 @@ body {
     border: solid 1px;
     border-color: rgb(150,150,150);
     border-radius:3px;
-    
+}
+
+.glyphicon-remove{
+    cursor: pointer;
+}
+
+.panel-default{
+
+}
+
+.panel-default:hover{
+    outline-color: #2785D1;
+    outline-style:solid;
+    outline-width:2px;
 }
 
 span.tabulatedTitle{
     margin-right: 30pt;
     color: #ff362e
-
 }
 
 .tabTitleFont {
@@ -78,4 +90,8 @@ span.tabulatedTitle{
 
 P {
     font-size: 17px;
+}
+
+.button:hover {
+
 }

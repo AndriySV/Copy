@@ -11,19 +11,23 @@ import java.util.List;
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
 
     @Query("select h from Hotel h " +
-            "where h.region.country.name = :country " +
+            "where (h.region.country.name in (:country) " +
+            "or 'allCountries' in (:country)) " +
             "and h.rating >= :rating " +
             "and h.comfort >= :comfort " +
             "and h.cleanliness >= :cleanliness " +
             "and h.location >= :location " +
-            "and h.valueForMoney >= :valueForMoney")
-    List<Hotel> findByCustomParameters(@Param("country") String country,
+            "and h.valueForMoney >= :valueForMoney " +
+            "order by h.rating desc")
+    List<Hotel> findByCustomParameters(@Param("country") List<String> country,
                                        @Param("rating") BigDecimal rating,
                                        @Param("comfort") BigDecimal comfort,
                                        @Param("cleanliness") BigDecimal cleanliness,
                                        @Param("location") BigDecimal location,
                                        @Param("valueForMoney") BigDecimal valueForMoney);
 
-    List <Hotel> findByName(String name);
+    @Query("select h from Hotel h " +
+            "where h.name like concat('%',:name,'%')")
+    List <Hotel> findByName(@Param("name")String name);
 }
 

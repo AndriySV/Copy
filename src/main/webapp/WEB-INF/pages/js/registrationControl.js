@@ -31,9 +31,9 @@ function registrationControl(name, email, password, confirmPassword, birthday, p
 		return false;
 	}
 	
-	if (6 > password.length || password.length > 30) {
+	if (6 > password.length || password.length > 10) {
 		alert("Ви ввели некоректний пароль ! \n" +
-		"Пароль повинен містити від 6 до 30 символів !");
+		"Пароль повинен містити від 6 до 10 символів !");
 		return false;
 	} 
 	

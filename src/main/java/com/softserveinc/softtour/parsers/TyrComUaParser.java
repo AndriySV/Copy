@@ -7,17 +7,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.Select;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class TyrComUaParser implements TyrComUaParserConstants {
-    private static final String URL_tyr = "http://www.tyr.com.ua/tours/search.php";
-    private static Map<String, String> countryUaRuVocabulary = new HashMap<>();
-    private static Map<String, String> regionUaRuVocabulary = new HashMap<>();
-    private static Map<String, String> departureCityUaRuVocabulary = new HashMap<>();
-    private WebDriver driver = new HtmlUnitDriver(true);
+    private static WebDriver driver = new HtmlUnitDriver(true);
+    private static Properties countryUaRuVocabulary = new Properties();
+    private static Properties regionUaRuVocabulary = new Properties();
+    private static Properties departureCityUaRuVocabulary = new Properties();
     private List<Tour> tourList = new ArrayList<>();
     private String country;
     private String region;
@@ -37,32 +39,20 @@ public class TyrComUaParser implements TyrComUaParserConstants {
     private String departureCity;
 
     static {
-        //Єгипет
-        countryUaRuVocabulary.put("Єгипет", "Египет");
-        regionUaRuVocabulary.put("Дахаб", "Дахаб");
-        regionUaRuVocabulary.put("Макаді Бей", "Макади Бей");
-        regionUaRuVocabulary.put("Марса Алам", "Марса Алам");
-
-        //Туреччина
-        countryUaRuVocabulary.put("Туреччина", "Турция");
-        regionUaRuVocabulary.put("Аланья", "Аланья");
-        regionUaRuVocabulary.put("Анталія", "Анталия");
-        regionUaRuVocabulary.put("Белек", "Белек");
-
-        //Греція
-        countryUaRuVocabulary.put("Греція", "Греция");
-        regionUaRuVocabulary.put("Агія Тріада", "Агия Триада");
-        regionUaRuVocabulary.put("Астіпалея", "Астипалея");
-        regionUaRuVocabulary.put("Аттика", "Аттика");
-
-        departureCityUaRuVocabulary.put("Київ", "Киев");
-        departureCityUaRuVocabulary.put("Львів", "Львов");
-        departureCityUaRuVocabulary.put("Харків", "Харьков");
-        departureCityUaRuVocabulary.put("Одеса", "Одесса");
-        departureCityUaRuVocabulary.put("Запоріжжя", "Запорожье");
-        departureCityUaRuVocabulary.put("Дніпропетровськ", "Днепропетровск");
+        try {
+            InputStream inputCountry = TyrComUaParser.class.getClass().
+                                       getResourceAsStream(RESOURCE_PATH_COUNTRY_VOCABULARY);
+            InputStream inputRegion = TyrComUaParser.class.getClass().
+                                      getResourceAsStream(RESOURCE_PATH_REGION_VOCABULARY);
+            InputStream inputDepCity = TyrComUaParser.class.getClass().
+                                       getResourceAsStream(RESOURCE_PATH_DEPARTURE_CITY_VOCABULARY);
+            countryUaRuVocabulary.load(new InputStreamReader(inputCountry, DEFAULT_CHARSET));
+            regionUaRuVocabulary.load(new InputStreamReader(inputRegion, DEFAULT_CHARSET));
+            departureCityUaRuVocabulary.load(new InputStreamReader(inputDepCity, DEFAULT_CHARSET));
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        }
     }
-
 
     public TyrComUaParser(String country, String region, String hotel, int[] stars, String[] foods, int adults,
                           int children, int[] childrenAge, String dateFlyFrom, String dateFlyTo, int countNightsFrom,
@@ -83,7 +73,7 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         this.priceTo = priceTo;
         this.currency = currency;
         this.departureCity = departureCity;
-        driver.get(URL_tyr);
+        driver.get(URL_TYR_COM_UA);
     }
 
     public List<Tour> parse(){
@@ -108,44 +98,44 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         return tourList;
     }
 
-    public void setDriver(WebDriver driver) {
-        this.driver = driver;
-    }
-
     private void selectCountry(String country){
         if(country.equalsIgnoreCase(DEFAULT_COUNTRY)){
             return;
+        } else {
+            Select dropDownCountry = new Select(driver.findElement(By.id(DROP_DOWN_COUNTRY_ID)));
+            String countryRu = countryUaRuVocabulary.getProperty(country);
+            dropDownCountry.selectByVisibleText(countryRu);
         }
-        Select dropDownCountry = new Select(driver.findElement(By.id(DROP_DOWN_COUNTRY_ID)));
-        String countryRu = countryUaRuVocabulary.get(country);
-        dropDownCountry.selectByVisibleText(countryRu);
     }
 
     private void selectRegion(String region){
+        //TODO can be default region
         if(region == null){
             return;
+        } else {
+            WebElement selectRegion = driver.findElement(By.id(SELECT_REGION_ID));
+            Select dropDownRegion = new Select(selectRegion);
+            String regionRu = regionUaRuVocabulary.getProperty(region);
+            dropDownRegion.selectByVisibleText(regionRu);
         }
-        WebElement selectRegion = driver.findElement(By.id(SELECT_REGION_ID));
-        Select dropDownRegion = new Select(selectRegion);
-        String regionRu = regionUaRuVocabulary.get(region);
-        dropDownRegion.selectByVisibleText(regionRu);
     }
 
     private void selectHotel(String hotel){
+        //TODO can be default hotel
         if(hotel == null){
             return;
+        } else {
+            WebElement selectHotel = driver.findElement(By.id(SELECT_HOTEL_ID));
+            Select dropHotel = new Select(selectHotel);
+            dropHotel.selectByVisibleText(hotel);
         }
-        WebElement selectHotel = driver.findElement(By.id(SELECT_HOTEL_ID));
-        Select dropHotel = new Select(selectHotel);
-        dropHotel.selectByVisibleText(hotel);
     }
 
-
     private void selectStars(int...stars){
+        //TODO How to select stars? Almost all selected, 2 discarded by default
         if(stars.length == 0){
             return;
         }
-        //almost all selected, 2 discarded
         boolean[] starsBoolean = new boolean[4];
         for(int star : stars){
             switch (star){
@@ -184,8 +174,6 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
     }
 
-
-
     private void selectFood(String...foods){
         if(foods.length == 0){
             return;
@@ -223,10 +211,11 @@ public class TyrComUaParser implements TyrComUaParserConstants {
             return;
         } else if(adults > 5 || adults < 1){
             throw new NoSuchElementException("There are more then 5 adults or less then 1: " + adults);
+        } else {
+            WebElement selectAdultsCount = driver.findElement(By.id(DROP_DOWN_ADULTS_ID));
+            Select dropDownAdults = new Select(selectAdultsCount);
+            dropDownAdults.selectByVisibleText(String.valueOf(adults));
         }
-        WebElement selectAdultsCount = driver.findElement(By.id(DROP_DOWN_ADULTS_ID));
-        Select dropDownAdults = new Select(selectAdultsCount);
-        dropDownAdults.selectByVisibleText(String.valueOf(adults));
     }
 
     private void selectChildrenCount(int children){
@@ -234,11 +223,11 @@ public class TyrComUaParser implements TyrComUaParserConstants {
             return;
         } else if (children > 3 || children < 0){
             throw new NoSuchElementException("There are more then 3 children or less then 0: " + children);
+        } else {
+            WebElement selectChildrenCount = driver.findElement(By.id(DROP_DOWN_CHILDREN_ID));
+            Select dropChildren = new Select(selectChildrenCount);
+            dropChildren.selectByVisibleText(String.valueOf(children));
         }
-        WebElement selectChildrenCount = driver.findElement(By.id(DROP_DOWN_CHILDREN_ID));
-        Select dropChildren = new Select(selectChildrenCount);
-        dropChildren.selectByVisibleText(String.valueOf(children));
-
     }
 
     private void selectChildrenAge(int...childrenAge){
@@ -259,88 +248,94 @@ public class TyrComUaParser implements TyrComUaParserConstants {
                 childrenAge3.sendKeys(String.valueOf(childrenAge[2]));
                 break;
             }default:{
-                throw new NoSuchElementException("Wow, you are cool parent, but there are no place in form for " +
-                                                 childrenAge.length + " children. Sorry.");
+                throw new NoSuchElementException("There are must be count of children less then 3 ");
             }
         }
     }
 
     private void selectDateFlyFrom(String dateFlyFrom){
+        //TODO What date is default in our app?
         if(dateFlyFrom == null){
             return;
+        } else {
+            WebElement dataFlyFrom = driver.findElement(By.id(SEND_DATE_FLY_FROM_ID));
+            dataFlyFrom.clear();
+            dataFlyFrom.sendKeys(dateFlyFrom);
         }
-        WebElement dataFlyFrom = driver.findElement(By.id(SEND_DATE_FLY_FROM_ID));
-        dataFlyFrom.clear();
-        dataFlyFrom.sendKeys(dateFlyFrom);
     }
 
     private void selectDateFlyTo(String dateFlyTo){
+        //TODO What date is default in our app?
         if(dateFlyTo == null){
             return;
+        } else {
+            WebElement dataFlyTo = driver.findElement(By.id(SEND_DATE_FLY_TO_ID));
+            dataFlyTo.clear();
+            dataFlyTo.sendKeys(dateFlyTo);
         }
-        WebElement dataFlyTo = driver.findElement(By.id(SEND_DATE_FLY_TO_ID));
-        dataFlyTo.clear();
-        dataFlyTo.sendKeys(dateFlyTo);
     }
 
     private void selectCountNightsFrom(int countNightsFrom){
-        if(countNightsFrom == 6 || (countNightsFrom <= 0 || countNightsFrom > 21)){
+        //TODO Is count nights from 1 to 21 in our app?
+        if (countNightsFrom == 6 || (countNightsFrom <= 0 || countNightsFrom > 21)){
             return;
+        } else {
+            WebElement nightsFrom = driver.findElement(By.id(DROP_DOWN_NIGHTS_FROM_ID));
+            Select dropDownNightsFrom = new Select(nightsFrom);
+            dropDownNightsFrom.selectByVisibleText(String.valueOf(countNightsFrom));
         }
-        WebElement nightsFrom = driver.findElement(By.id(DROP_DOWN_NIGHTS_FROM_ID));
-        Select dropDownNightsFrom = new Select(nightsFrom);
-        dropDownNightsFrom.selectByVisibleText(String.valueOf(countNightsFrom));
     }
 
     private void selectCountNightsTo(int countNightsTo){
-        if(countNightsTo == 14 || (countNightsTo <=0 || countNightsTo > 21)){
+        //TODO Is count nights from 1 to 21 in our app?
+        if (countNightsTo == 14 || (countNightsTo <=0 || countNightsTo > 21)){
             return;
+        } else {
+            WebElement nightsTo = driver.findElement(By.id(DROP_DOWN_NIGHTS_TO_ID));
+            Select dropDownNightsTo = new Select(nightsTo);
+            dropDownNightsTo.selectByVisibleText(String.valueOf(countNightsTo));
         }
-        WebElement nightsTo = driver.findElement(By.id(DROP_DOWN_NIGHTS_TO_ID));
-        Select dropDownNightsTo = new Select(nightsTo);
-        dropDownNightsTo.selectByVisibleText(String.valueOf(countNightsTo));
     }
 
     private void selectPriceFrom(int priceFrom){
-        if(priceFrom == 0){
+        if (priceFrom == 0){
             return;
-        } else if(priceFrom > 99999){
-            priceFrom = 99999;
-        } else if(priceFrom < 0){
-            priceFrom *= -1;
+        } else {
+            WebElement price = driver.findElement(By.id(SEND_PRICE_FROM_ID));
+            price.clear();
+            price.sendKeys(String.valueOf(priceFrom));
         }
-        WebElement price = driver.findElement(By.id(SEND_PRICE_FROM_ID));
-        price.clear();
-        price.sendKeys(String.valueOf(priceFrom));
     }
 
     private void selectPriceTo(int priceTo){
-        if(priceTo == 99000 || priceTo == 0){
+        if (priceTo == 99000){
             return;
-        } else if(priceTo > 99999){
-            priceTo = 99999;
-        } else if(priceTo < 0){
-            priceTo *= -1;
+        } else {
+            WebElement price = driver.findElement(By.id(SEND_PRICE_TO_ID));
+            price.clear();
+            price.sendKeys(String.valueOf(priceTo));
         }
-        WebElement price = driver.findElement(By.id(SEND_PRICE_TO_ID));
-        price.clear();
-        price.sendKeys(String.valueOf(priceTo));
     }
 
     private void selectCurrency(String currency){
-        if(currency.equalsIgnoreCase("USD")){
+        if (currency.equalsIgnoreCase(DEFAULT_CURRENCY)){
             return;
+        } else {
+            WebElement selectCurrency = driver.findElement(By.id(DROP_DOWN_CURRENCY_ID));
+            Select dropDownCurrency = new Select(selectCurrency);
+            dropDownCurrency.selectByVisibleText(currency);
         }
-        WebElement selectCurrency = driver.findElement(By.id(DROP_DOWN_CURRENCY_ID));
-        Select dropDownCurrency = new Select(selectCurrency);
-        dropDownCurrency.selectByVisibleText(currency);
     }
 
     private void selectDepartureCity(String departureCity){
-        WebElement departure = driver.findElement(By.name(DROP_DOWN_DEPARTURE_CITY_NAME));
-        Select dropDownDeparture = new Select(departure);
-        String departureCityRu = departureCityUaRuVocabulary.get(departureCity);
-        dropDownDeparture.selectByVisibleText(departureCityRu);
+        if(departureCity.equals(DEFAULT_DEPARTURE_CITY)){
+            return;
+        } else {
+            WebElement departure = driver.findElement(By.name(DROP_DOWN_DEPARTURE_CITY_NAME));
+            Select dropDownDeparture = new Select(departure);
+            String departureCityRu = departureCityUaRuVocabulary.getProperty(departureCity);
+            dropDownDeparture.selectByVisibleText(departureCityRu);
+        }
     }
 
     private void search(){
@@ -350,45 +345,16 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         buttonSubmit.click();
     }
 
-    public void driverQuit(){
+    public void quit(){
         driver.quit();
     }
 
     public void addAllWebElementsToWebElementList(){
-        ArrayList<WebElement> oddList = (ArrayList<WebElement>) driver.findElements(By.className(PARSE_RESULTS_BY_CLASS_NAME_ODD));
-        ArrayList<WebElement> evenList = (ArrayList<WebElement>) driver.findElements(By.className(PARSE_RESULTS_BY_CLASS_NAME_EVEN));
-
-        List<WebElement> webElementList = new ArrayList<>();
-        //I do it to save same order of elements, as in search result
-        for(int i = 0; i<evenList.size(); i++){
-            webElementList.add(oddList.get(i));
-            webElementList.add(evenList.get(i));
-        }
-        if(oddList.size()>evenList.size()){
-            webElementList.add(oddList.get(oddList.size()-1));
-        }
-        oddList.clear();
-        evenList.clear();
-        for(WebElement webElement : webElementList){
-            addTourToList(webElement);
-        }
-
         for(int i = 2; i<COUNT_RESULT_PAGES;i++){
-            WebElement nextPage = null;
-            try{
-                nextPage = driver.findElement(By.linkText(String.valueOf(i)));
-                nextPage.click();
-            } catch (org.openqa.selenium.NoSuchElementException e){
-                return;
-            }
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            oddList = (ArrayList<WebElement>) driver.findElements(By.className(PARSE_RESULTS_BY_CLASS_NAME_ODD));
-            evenList = (ArrayList<WebElement>) driver.findElements(By.className(PARSE_RESULTS_BY_CLASS_NAME_EVEN));
-
+            ArrayList<WebElement> oddList = (ArrayList<WebElement>)
+                    driver.findElements(By.className(PARSE_RESULTS_BY_CLASS_NAME_ODD));
+            ArrayList<WebElement> evenList = (ArrayList<WebElement>)
+                    driver.findElements(By.className(PARSE_RESULTS_BY_CLASS_NAME_EVEN));
             //I do it to save same order of elements, as in search result
             List<WebElement> webElementList2 = new ArrayList<>();
             for(int j = 0; j<evenList.size(); j++){
@@ -403,6 +369,13 @@ public class TyrComUaParser implements TyrComUaParserConstants {
             }
             oddList.clear();
             evenList.clear();
+            WebElement nextPage = null;
+            try{
+                nextPage = driver.findElement(By.linkText(String.valueOf(i)));
+                nextPage.click();
+            } catch (org.openqa.selenium.NoSuchElementException e){
+                return;
+            }
         }
     }
 
@@ -423,22 +396,23 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         tourDataList.add(textRight.getText());
 
         /*
-      0  Хургада
-      1  Princess Palace Hotel
-      2  Std
-      3  Киев
-      4  3
-      5  HB
-      6  6
-      7  14.12.14
-      8  Подробнее
-      9  1067€
+        list elements
+      0  region
+      1  Hotel name
+      2  ? Std
+      3  departure city
+      4  stars
+      5  food
+      6  tour days
+      7  departure date
+      8  link
+      9  price
          */
 
         Tour tour = new Tour();
 
         //set tour date
-        //Поки-що дата туру буде датою вильоту :)
+        //Поки-що дата туру буде датою вильоту :(
         String tourDate = tourDataList.get(7);
         SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLE_DATE_FORMAT_DATE);
         Date date = null;
@@ -458,8 +432,8 @@ public class TyrComUaParser implements TyrComUaParserConstants {
 
         //set departure city
         String depCity = tourDataList.get(3);
-        if(depCity.equalsIgnoreCase(DEPARTURE_CITY_DEFAULT)) {
-            tour.setDepartureCity(departureCity);
+        if(depCity.equalsIgnoreCase(NO_DEPARTURE)) {
+            tour.setDepartureCity(NO_DEPARTURE_UA);
         } else {
             tour.setDepartureCity(depCity);
         }
@@ -481,7 +455,7 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         char [] priceCh = priceSt.toCharArray();
         StringBuffer priceOnlyNumbers = new StringBuffer();
         for(char ch : priceCh){
-            if(ch>=48 && ch <= 57){
+            if(ch >= 48 && ch <= 57){
                 priceOnlyNumbers.append(ch);
             }
         }
@@ -508,15 +482,15 @@ public class TyrComUaParser implements TyrComUaParserConstants {
     public static void main(String[] args) {
         int[] stars = {2, 3, 4, 5};
         String[] foods = {"HB", "AI"};
-        int[] childrenAge = {9};
-        //null for now
-        TyrComUaParser parser = new TyrComUaParser("Туреччина", "Анталія", "Adalia Hotel", stars, foods, 3, 1, childrenAge,
-                "01.10.14", "31.12.14", 6, 21, 4000, 12000, "Грн", "Львів");
+        int[] childrenAge = {};
+        TyrComUaParser parser = new TyrComUaParser("Греція", "Агія Тріада", "Sun Beach Hotel", stars, foods, 3, 0, childrenAge,
+                "01.10.14", "31.12.14", 6, 21, 5000, 120000, "Грн", "Київ");
         List<Tour> resultList = parser.parse();
         for(int i = 0; i<resultList.size(); i++){
             System.out.println(resultList.get(i).toString());
         }
-        parser.driverQuit();
+        //don't forget to use this method
+        parser.quit();
     }
 }
 
