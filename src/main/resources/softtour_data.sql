@@ -4,14 +4,10 @@ INSERT INTO role VALUES
   (1, 'admin'),
   (2, 'ordinaryUser'),
   (3, 'registeredUser');
-  
-  INSERT INTO password VALUES
-  (1, 'sdkflnjklsdfnsldnf'),
-  (2, 'sdlkfhs;dlkfhdslkfh');
 
 INSERT INTO user VALUES
-  (1, 'Andriy', 'elips@gmail.com', '1987-11-24', 26, 'MALE', '+38(095)800-08-77', 1, 3),
-  (2, 'Taras', 'taras@gmail.com', '1990-06-12', 24, 'MALE', '+38(099)445-56-66', 2, 3);
+  (1, 'Andriy', 'elips@gmail.com', '1111', '1987-11-24', 26, 'MALE', '+38(095)800-08-77', 3),
+  (2, 'Taras', 'taras@gmail.com', '2222', '1990-06-12', 24, 'MALE', '+38(099)445-56-66', 3);
 
 INSERT INTO country VALUES
   (1, 'Egypt'),

@@ -3,12 +3,13 @@ package com.softserveinc.softtour.entity;
 import com.softserveinc.softtour.entity.template.Sex;
 
 import javax.persistence.*;
-
+import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
 @Table(name = "User")
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,8 +22,8 @@ public class User {
     @Column(name = "email", nullable = false, length = 30)
     private String email;
 
-   /* @Column(name = "password", nullable = false, length = 10)
-    private String password;*/
+    @Column(name = "password", nullable = false, length = 10)
+    private String password;
 
     @Column(name = "birthday", nullable = false)
     private Date birthday;
@@ -37,10 +38,6 @@ public class User {
     @Column(name = "phone", length = 20)
     private String phone;
 
-    @OneToOne
-    @JoinColumn(name = "password_id", nullable = false)
-    private Password password;
-    
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
@@ -48,19 +45,19 @@ public class User {
     public User() {
     }
 
-    
-    
-    public User(String name, String email, Date birthday, byte age, Sex sex,
-			String phone, Password password, Role role) {
-		this.name = name;
-		this.email = email;
-		this.birthday = birthday;
-		this.age = age;
-		this.sex = sex;
-		this.phone = phone;
-		this.password = password;
-		this.role = role;
-	}
+    public User(String name, String email,
+                String password, Date birthday,
+                byte age, Sex sex, String phone, Role role) {
+
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.birthday = birthday;
+        this.age = age;
+        this.sex = sex;
+        this.phone = phone;
+        this.role = role;
+    }
 
     public long getId() {
         return id;
@@ -84,6 +81,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Date getBirthday() {
@@ -113,24 +118,12 @@ public class User {
     public String getPhone() {
         return phone;
     }
-    
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    
-    public Password getPassword() {
-		return password;
-	}
-
-
-	public void setPassword(Password password) {
-		this.password = password;
-	}
-
-
-
-	public Role getRole() {
+    public Role getRole() {
         return role;
     }
 
