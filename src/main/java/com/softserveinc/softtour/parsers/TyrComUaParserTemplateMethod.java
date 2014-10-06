@@ -110,12 +110,8 @@ public abstract class TyrComUaParserTemplateMethod implements TyrComUaParserCons
         selectCurrency(currency);
         selectDepartureCity(departureCity);
         search();
-        addAllWebElementsToWebElementList();
+        addWebElementsToWebElementList();
         return tourList;
-    }
-
-    public void quit(){
-        driver.quit();
     }
 
     protected abstract void selectCountry(String country);
@@ -135,5 +131,5 @@ public abstract class TyrComUaParserTemplateMethod implements TyrComUaParserCons
     protected abstract void selectCurrency(String currency);
     protected abstract void selectDepartureCity(String departureCity);
     protected abstract void search();
-    protected abstract void addAllWebElementsToWebElementList();
+    protected abstract void addWebElementsToWebElementList();
 }
