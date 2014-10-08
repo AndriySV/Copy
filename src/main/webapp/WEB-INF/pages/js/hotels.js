@@ -13,9 +13,13 @@ $(".hotel_search").on("submit", function (e) {
     e.preventDefault();
 });
 
-function searchByName() {
+function searchByName(pageNum) {
+
     var queryObj = {};
     queryObj.name = $("#searchHotelByName").val();
+    queryObj.pageNum = --pageNum;
+    queryObj.pageSize = PAGE_SIZE;
+
     $.ajax({
         url: "/hotels/search",
         type: "GET",
@@ -24,11 +28,14 @@ function searchByName() {
 
         success: function (data) {
 
-            $('#hotelResult').empty();
-            //$.each(data, function (key, value) {
+            var numOfPages = data.totalPages;
 
-            $('#hotelTemplate').tmpl(data).appendTo('#hotelResult');
-            //})
+            $('#hotelResult').empty();
+            $.each(data.content, function (key, value) {
+
+                $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
+            })
+            showPagination(searchByName, numOfPages, pageNum)
         },
 
         error: function () {
@@ -57,7 +64,7 @@ function searchHotels(pageNum) {
     query.cleanliness = $("#cleanliness").val();
     query.location = $("#location").val();
     query.valueForMoney = $("#value_for_money").val();
-    query.pageNum = pageNum;
+    query.pageNum = --pageNum;
     query.pageSize = PAGE_SIZE;
 
     $.ajax({
@@ -67,40 +74,55 @@ function searchHotels(pageNum) {
         dataType: 'json',
 
         success: function (data) {
+            var numOfPages = data.totalPages;
+
             $('#hotelResult').empty();
-            $.each(data, function (key, value) {
+
+            $.each(data.content, function (key, value) {
 
                 $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
             })
-        },
 
+            showPagination(searchHotels, numOfPages, pageNum)
+        },
         error: function () {
             alert("ERROR");
         }
+
     });
+
+    return numOfPages;
 }
 
-function showSearchResult(){
-    showPagination(searchHotels);
+function search() {
+    searchByName(1);
 }
 
-function showPagination(callback) {
-    callback(1);
+function showSearchResult() {
+    searchHotels(1);
+}
+
+function showPagination(callback, numOfPages, pageNum) {
+
+    if (pageNum == 0) {
+        $(".pagin").html('<ul class="pagination-md"></ul>');
+    }
+
     $('.pagination-md').twbsPagination({
-        totalPages: 10,
-        visiblePages: 7,
+        totalPages: numOfPages,
+        visiblePages: 15,
+        startPage: 1,
         onPageClick: function (event, page) {
-
             callback(page);
 
-            }
-        })
+        }
+    })
 }
 
-if ($('#hotel_page').length) {
-    $('#hotel_page').ready(function () {
 
-        showSearchResult();
+if ($('#hotel_page').length) {
+
+    $(this.$element).ready(function () {
 
         $("#countrySelect2").val(["AllCountry"]).select2({
             placeholder: "Оберіть країну",
@@ -122,5 +144,7 @@ if ($('#hotel_page').length) {
             $('#countrySelect2').html(html);
         });
     })
+
+    showSearchResult();
 }
 
