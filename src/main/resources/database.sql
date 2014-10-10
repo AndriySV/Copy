@@ -20,6 +20,7 @@ CREATE TABLE user (
   sex enum('MALE','FEMALE') NOT NULL,
   phone varchar(20) DEFAULT NULL,
   role_id bigint(20) NOT NULL,
+  enabled TINYINT NOT NULL DEFAULT 1,
 
   PRIMARY KEY (id),
   FOREIGN KEY (role_id) REFERENCES role (id)
@@ -49,6 +50,7 @@ CREATE TABLE hotel (
   name varchar(45) NOT NULL,
   stars int(1) NOT NULL,
   region_id bigint(20) NOT NULL,
+  feedbacksNum int(13) NOT NULL,
   rating decimal(2,1),
   comfort decimal(2,1),
   cleanliness decimal(2,1),
