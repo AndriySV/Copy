@@ -8,8 +8,8 @@
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
 	<http auto-config="true" use-expressions="true">
-		<intercept-url pattern="/**" access="permitAll()" />
-
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+		
 		<form-login 
 		    login-page="/login/form" 
 		    default-target-url="/" 
@@ -19,7 +19,7 @@
 		
 		<logout logout-success-url="/"  />
 		<!-- enable csrf protection -->
-		<csrf/>
+	<!-- 	<csrf/> -->
 		<anonymous username="guest" granted-authority="ROLE_ANONYMOUS"/>
 	</http>
 
