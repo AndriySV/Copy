@@ -25,7 +25,7 @@ import com.softserveinc.softtour.util.RegistrationValidator;
 public class RegistrationController {
 	
 	/**
-	 *  Creates    the object of the UserServiceImpl class 
+	 *  Creates the object of the UserServiceImpl class 
 	 */
 	@Autowired
 	private UserService userService;
