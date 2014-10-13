@@ -28,14 +28,12 @@
 	                <li><a href="/registration/new">Реєстрація</a></li>
                 </security:authorize>
              
-                <security:authorize access="hasRole('ROLE_USER')">
+                <security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
                 	  	<c:url value="/j_spring_security_logout" var="logoutUrl" />
-                	   <form action="${logoutUrl}" method="post" id="logoutForm">
-							<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%>
-						</form>
+                	 
+                	   <form action="${logoutUrl}" method="post" id="logoutForm"></form>
 						<script>
-							function formSubmit() {
-								document.getElementById("logoutForm").submit();	}
+							function formSubmit() {	document.getElementById("logoutForm").submit();	}
 						</script>
                 	  	
                 	  	<li><a>${pageContext.request.userPrincipal.name}</a></li>
@@ -43,8 +41,8 @@
                 			<a href="/userProfile">Mій профіль</a>
                 		</li>
                 	   <li>
-	                	   	<c:if test="${pageContext.request.userPrincipal.name != null}">
-									 <a href="javascript:formSubmit()">Вийти</a>
+                	   		<c:if test="${pageContext.request.userPrincipal.name != null}">
+								<a href="javascript:formSubmit()">Вийти</a>
 							</c:if>
                 	   </li>
                 </security:authorize>
