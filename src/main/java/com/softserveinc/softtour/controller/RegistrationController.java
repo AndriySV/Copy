@@ -68,7 +68,8 @@ public class RegistrationController {
 			userService.save(user);
         	
 			model.addAttribute(user);
-        	return "userProfile";
+        	return "login";
+        	
 		} else {
 			return "registration";
 		}
