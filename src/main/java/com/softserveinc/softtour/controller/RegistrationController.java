@@ -19,7 +19,7 @@ import com.softserveinc.softtour.util.PasswordEncoder;
 import com.softserveinc.softtour.util.RegistrationValidator;
 
 /**
- * @author Andriy
+ * @author  Andriy
  * Processes data from registration.jsp
  */
 @Controller
@@ -39,8 +39,9 @@ public class RegistrationController {
 	private RoleService roleService;
 	
 	/**
-	 *  Creates the object of the RegistrationValidator class 
+	 *  Creates the object of the RegistrationValidator  class 
 	 */
+	
 	@Autowired
 	private RegistrationValidator registrationValidator; 
 
