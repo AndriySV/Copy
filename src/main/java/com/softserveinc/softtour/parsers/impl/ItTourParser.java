@@ -50,6 +50,11 @@ public class ItTourParser {
     public List<Tour> parse(){
         String url = creareURL();
         searchTours(url);
+        
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println(url);
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        
         return tourList;
     }
 
@@ -153,7 +158,7 @@ listRight : 8 $
     }
 
     public static void main(String[] args) {
-        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,500, 1000);
+        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,500, 700);
         List<Tour> list = parser.parse();
         for(Tour tour : list){
             System.out.println(tour);

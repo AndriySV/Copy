@@ -1,4 +1,4 @@
-package com.softserveinc.softtour.parsers.impl;
+/*package com.softserveinc.softtour.parsers.impl;
 
 import com.softserveinc.softtour.dto.TrainTransit;
 import com.softserveinc.softtour.parsers.constants.TrainParserConstants;
@@ -94,7 +94,7 @@ public class TrainParser implements TrainParserConstants {
     }
 
     private void addTrainsToList(Elements trains, String cityFrom, String cityTo, Date tourDate){
-        /*
+        
  0 : Київ-Пас.
 1 : Львів
 2 : 9:14
@@ -105,7 +105,7 @@ public class TrainParser implements TrainParserConstants {
 7 : 04:08
 8 : 13:22
 9 :
-        * */
+        * 
         for(int i = 0; i<trains.size(); i+=FOR_CYCLE_STEP){
             if(i > FOR_CYCLE_STEP){
                 TrainTransit trainTransit = new TrainTransit();
@@ -170,3 +170,4 @@ public class TrainParser implements TrainParserConstants {
 
 
 
+*/
