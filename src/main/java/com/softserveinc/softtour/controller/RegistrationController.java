@@ -21,10 +21,6 @@ import com.softserveinc.softtour.util.RegistrationValidator;
 /**
  * @author  Andriy
  * Processes data from registration.jsp 
- * only
- * and other
- * me
- * last
  */
 @Controller
 @RequestMapping(value="/registration")
