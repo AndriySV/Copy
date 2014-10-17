@@ -1,13 +1,18 @@
 package com.softserveinc.softtour.parsers.impl;
 
-import com.softserveinc.softtour.entity.*;
+import com.softserveinc.softtour.entity.Country;
+import com.softserveinc.softtour.entity.Hotel;
+import com.softserveinc.softtour.entity.Region;
+import com.softserveinc.softtour.entity.Tour;
+import com.softserveinc.softtour.entity.template.Food;
+import com.softserveinc.softtour.entity.template.RoomType;
+import com.softserveinc.softtour.util.HotelHolder;
+import com.softserveinc.softtour.util.ItTourParserUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.text.ParseException;
@@ -15,73 +20,46 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 
 public class ItTourParser {
-    private String baseParams = "http://www.ittour.com.ua/tour_search.php?" +
-            "callback=jQuery17109648473216220737_1412803322658&id=5062D1884G6M7121819576&ver=1&type=2970&theme=38" +
-            "&action=package_tour_search&package_tour_type=0&tour_kind=0&default_form_select=1&items_per_page=100&preview=1";
+    private List<Tour> tourList = new ArrayList<>();
     private String country;
     private int adults;
     private int children;
-    private int priceFrom;
-    private int priceTo;
-    private List<Tour> tourList = new ArrayList<>();
-    private Properties countryProperties = new Properties();
+    private ItTourParserUtil parserUtil;
+    private String url;
+    private HotelHolder hotelHolder;
 
-    {
-        try {
-            InputStream inputCountry = this.getClass().
-                    getResourceAsStream("/parser_properties/it_tour_country_parameters");
-            countryProperties.load(new InputStreamReader(inputCountry, "UTF-8"));
-        }catch (IOException e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public ItTourParser(String country, int adults, int children, int priceFrom, int priceTo) {
+    public ItTourParser(String country, int adults, int children, int priceFrom, int priceTo, int pageNumber) {
         this.country = country;
         this.adults = adults;
         this.children = children;
-        this.priceFrom = priceFrom;
-        this.priceTo = priceTo;
+        parserUtil = new ItTourParserUtil();
+        this.url = parserUtil.createQuickSearchUrl(country, adults, children, priceFrom, priceTo, pageNumber);
+        hotelHolder = HotelHolder.getInstance();
     }
 
     public List<Tour> parse(){
-        String url = creareURL();
-        searchTours(url);
-        
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println(url);
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        
+        Document document = search(url);
+        // Document document = search("http://www.ittour.com.ua/tour_search.php?callback=jQuery17105286387244705111_1413460276773&module_type=tour_search&id=5062D1884G6M7121819576&ver=1&type=2970&theme=38&action=package_tour_search&hotel_rating=3+4+78&food=496+388+498+512+560+1956&hotel=&region=&child_age=&package_tour_type=1&tour_kind=0&country=338&adults=2&children=0&date_from=16.10.14&date_till=26.10.14&night_from=6&night_till=14&price_from=0&price_till=99000&switch_price=USD&departure_city=2014&items_per_page=50&module_location_url=http%3A%2F%2Ftyr.com.ua%2Ftours%2Fsearch.php&preview=1&_=1413460280572");
+        addTours(document);
         return tourList;
     }
 
-    private String creareURL(){
-        StringBuilder stringBuilder = new StringBuilder(baseParams);
-        stringBuilder.append("&country=").append(countryProperties.getProperty(country));
-        stringBuilder.append("&adults=").append(adults);
-        stringBuilder.append("&children=").append(children);
-        stringBuilder.append("&price_from=").append(priceFrom);
-        stringBuilder.append("&price_till=").append(priceTo);
-        return stringBuilder.toString();
-    }
-
-    private void searchTours(String url){
+    private Document search(String url){
         String doc = null;
         try {
             doc = Jsoup.connect(url).
-                  timeout(5000).
+                  timeout(100000).
                   ignoreContentType(true).
                   execute().
                   body();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        doc = doc.replace("\\","");
-        Document document = Jsoup.parse(doc);
-        addTours(document);
+        String tourPage = doc.replace("\\", "");
+        Document document = Jsoup.parse(tourPage);
+        return document;
     }
 
     private void addTours(Document document){
@@ -123,7 +101,7 @@ listRight : 8 $
 
             //set food
             String foodSt = listCenter.get(1).text();
-            Food food = new Food(foodSt);
+            Food food = Food.valueOf(foodSt);
             tour.setFood(food);
 
             //set departure time & date
@@ -136,12 +114,41 @@ listRight : 8 $
                 departure = format.parse(depTime);
                 sqlDateDepart = new java.sql.Date(departure.getTime());
                 sqlTimeDepart = new Time(departure.getTime());
-
             } catch (ParseException e) {
                 e.printStackTrace();
             }
             tour.setDepartureTime(sqlTimeDepart);
             tour.setDate(sqlDateDepart);
+
+            //set departure city
+            String depCity = "";
+            try{
+                depCity = listLeft.get(3).getElementsByTag("div").first().text();
+            }catch (NullPointerException e){
+                depCity = "Без перельоту";
+            }
+                tour.setDepartureCity(depCity);
+
+            //set adults & children
+            tour.setAdultAmount(adults);
+            tour.setChildrenAmount(children);
+
+            //set room type
+            String roomTypeSt = listLeft.get(2).text().toUpperCase();
+            RoomType roomType = null;
+            try {
+                roomType = RoomType.valueOf(roomTypeSt);
+            }catch (IllegalArgumentException e){
+                if(roomTypeSt.equals("APAR...")){
+                    roomType = RoomType.APART;
+                } else if(roomTypeSt.equals("FAMI...")){
+                    roomType = RoomType.FAMILY;
+                } else {
+                    roomType = RoomType.UNKNOWN;
+                }
+            }
+            tour.setRoomType(roomType);
+
 
             //set hotel
             String hotelName = listLeft.get(1).text();
@@ -153,14 +160,39 @@ listRight : 8 $
             Hotel hotel = new Hotel(hotelName, hotelStars, hotelRegion);
             tour.setHotel(hotel);
 
+            //set data from hotel page
+
+            //set hotel img
+            if(hotelHolder.containsHotel(hotelName)){
+                hotel.setImgUrl(hotelHolder.getHotelPicture(hotelName));
+            } else {
+                Element link = listLeft.get(1).select("a").first();
+                String value = link.attr("onclick").replace("return package_tour_order(", "").replace(");", "");
+                String[] id = value.split(",");
+                ItTourParserUtil parserUtil = new ItTourParserUtil();
+                String url = parserUtil.hotelInfoUrl(id);
+                Document docum = search(url);
+                Element img = docum.getElementById("main_img_tour_in_view_open_");
+                String imgUrl = "";
+                try {
+                    imgUrl = img.attr("src");
+                    hotel.setImgUrl(imgUrl);
+                } catch (NullPointerException e) {
+                    hotel.setImgUrl("no_img");
+                }
+                hotelHolder.putHotel(hotelName, imgUrl);
+            }
+
+            //set
+
             tourList.add(tour);
         }
     }
 
     public static void main(String[] args) {
-        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,500, 700);
-        List<Tour> list = parser.parse();
-        for(Tour tour : list){
+        ItTourParser parser = new ItTourParser("Туреччина", 3, 1 ,500, 5000, 2);
+        List<Tour> listTour = parser.parse();
+        for(Tour tour : listTour){
             System.out.println(tour);
         }
     }
