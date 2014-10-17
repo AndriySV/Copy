@@ -19,9 +19,8 @@ import com.softserveinc.softtour.util.PasswordEncoder;
 import com.softserveinc.softtour.util.RegistrationValidator;
 
 /**
- * @author  Andriy
- * Processes data from registration.jsp 
- * 
+ * @author Andriy
+ * Processes data from registration.jsp
  */
 @Controller
 @RequestMapping(value="/registration")
@@ -40,9 +39,8 @@ public class RegistrationController {
 	private RoleService roleService;
 	
 	/**
-	 *  Creates the object of the RegistrationValidator  class 
+	 *  Creates the object of the RegistrationValidator class 
 	 */
-	
 	@Autowired
 	private RegistrationValidator registrationValidator; 
 
@@ -64,8 +62,6 @@ public class RegistrationController {
 	 */
 	@RequestMapping(value="/new")
 	public String registrationUser(Model model){
-		String s = "remote";
-		int i = 0;
 		model.addAttribute(new User());
 		return "registration";
 	}
