@@ -65,6 +65,7 @@ public class RegistrationController {
 	 */
 	@RequestMapping(value="/new")
 	public String registrationUser(Model model){
+		String s = "remote";
 		model.addAttribute(new User());
 		return "registration";
 	}
