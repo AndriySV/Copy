@@ -16,6 +16,7 @@ import com.softserveinc.softtour.service.FavoriteService;
 
 
 /**
+ * 1
  * @author Andriy
  * Processes favorite's data
  */
