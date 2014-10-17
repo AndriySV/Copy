@@ -16,7 +16,6 @@ import com.softserveinc.softtour.service.FavoriteService;
 /**
  * @author Andriy
  * Processes favorite's data
- * test
  */
 @Controller
 @RequestMapping(value="/favorite")
@@ -31,7 +30,7 @@ public class FavoriteController {
 	/**
 	 * Saves the object user to the table User
 	 */
-	@RequestMapping (value="/save", method=RequestMethod.POST)
+	@RequestMapping(value="/save", method=RequestMethod.POST)
 	public String save(Favorite favorite) {
 		// FIXME Need to set user id
 		// FIXME Need to set tour id
