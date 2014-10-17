@@ -24,6 +24,7 @@ import com.softserveinc.softtour.util.RegistrationValidator;
  * only
  * and other
  * me
+ * last
  */
 @Controller
 @RequestMapping(value="/registration")
