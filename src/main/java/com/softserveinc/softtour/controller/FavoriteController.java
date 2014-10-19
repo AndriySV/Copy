@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.softserveinc.softtour.entity.Favorite;
 import com.softserveinc.softtour.service.FavoriteService;
 
-
-
 /**
- * 1
  * @author Andriy
  * Processes favorite's data
  */
