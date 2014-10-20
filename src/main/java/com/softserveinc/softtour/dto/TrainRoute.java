@@ -1,15 +1,22 @@
 package com.softserveinc.softtour.dto;
 
+import java.util.Date;
+
 public class TrainRoute {
 
 	// FIXME It's number of train comment
 	private String id;
 	private String departureCity;
 	private String arrivalCity;
+	
 	private String departureDate;
 	private String departureTime;
+//	private Date departureDate;
+	
 	private String onWayTime;
 	private String arrivalTime;
+//	private Date arrivalDate;
+
 	private String priceMin;
 	private String priceMax;
 

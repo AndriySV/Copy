@@ -179,7 +179,7 @@ public class TrainParser {
 	 * Only for testing
 	 */
 	public static void main(String[] args) {
-		TrainParser obj = new TrainParser("Київ", "Львів", "2014-11-01", "23:00");
+		TrainParser obj = new TrainParser("Київ", "Львів", "2014-11-10", "21:00");
 		obj.getRoutes();
 	}
 }
