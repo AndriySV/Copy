@@ -37,7 +37,7 @@ public class CreatorTrainUrl {
 
 		try {
 			// FIXME change url for testing src/main/resources
-			fileReader = new FileReader("/parser_properties/train_parser.properties");
+			fileReader = new FileReader("src/main/resources/parser_properties/train_parser.properties");
 			bufferedReader = new BufferedReader(fileReader);
 			properties.load(bufferedReader);
 
