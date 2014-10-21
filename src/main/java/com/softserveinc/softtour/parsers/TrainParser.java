@@ -8,9 +8,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.softserveinc.softtour.dto.TrainRoute;
+import com.softserveinc.softtour.bean.TrainRoute;
 import com.softserveinc.softtour.util.CreatorTrainUrl;
-import com.softserveinc.softtour.util.ValidatorTrainDate;
+import com.softserveinc.softtour.util.DateValidator;
 
 public class TrainParser {
 	private static final int MAX_NUMER_OF_RETRYING = 15;
@@ -20,7 +20,7 @@ public class TrainParser {
 	private TrainRoute trainRoute;
 	private ArrayList<TrainRoute> routesList;
 	private CreatorTrainUrl creatorTrainUrl;
-	private ValidatorTrainDate validatorTrainDate;
+	private DateValidator dateValidator;
 	
 	private String departureTime;
 	
@@ -33,7 +33,7 @@ public class TrainParser {
 		this.departureTime = departureTime;
 		
 		routesList = new ArrayList<TrainRoute>();
-		validatorTrainDate = new ValidatorTrainDate();
+		dateValidator = new DateValidator();
 	}
 	
 	public TrainParser() {
@@ -44,7 +44,7 @@ public class TrainParser {
 		//FIXME Del ...
 		System.out.println();
 		
-		trainRoute.setDepartureDate(validatorTrainDate.setPreviousDate(trainRoute, departureTime));
+		trainRoute.setDepartureDate(dateValidator.setPreviousDate(trainRoute, departureTime));
 		parse();
 		
 		return routesList;
@@ -103,7 +103,7 @@ public class TrainParser {
 			
 			parseUnitRoute(unitsRoute);
 			
-			if (validatorTrainDate.validate(trainRoute, departureTime)) {
+			if (dateValidator.validate(trainRoute, departureTime)) {
 				addRoute();
 			}
 		}
@@ -179,7 +179,7 @@ public class TrainParser {
 	 * Only for testing
 	 */
 	public static void main(String[] args) {
-		TrainParser obj = new TrainParser("Київ", "Львів", "2014-11-10", "21:00");
+		TrainParser obj = new TrainParser("Київ", "Львів", "2014-11-03", "21:00");
 		obj.getRoutes();
 	}
 }

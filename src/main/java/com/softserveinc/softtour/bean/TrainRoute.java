@@ -1,6 +1,4 @@
-package com.softserveinc.softtour.dto;
-
-import java.util.Date;
+package com.softserveinc.softtour.bean;
 
 public class TrainRoute {
 
@@ -8,15 +6,10 @@ public class TrainRoute {
 	private String id;
 	private String departureCity;
 	private String arrivalCity;
-	
 	private String departureDate;
 	private String departureTime;
-//	private Date departureDate;
-	
 	private String onWayTime;
 	private String arrivalTime;
-//	private Date arrivalDate;
-
 	private String priceMin;
 	private String priceMax;
 

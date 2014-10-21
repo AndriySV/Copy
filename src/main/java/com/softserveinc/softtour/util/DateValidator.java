@@ -5,9 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.softserveinc.softtour.dto.TrainRoute;
+import com.softserveinc.softtour.bean.TrainRoute;
 
-public class ValidatorTrainDate {
+public class DateValidator {
 	
 	private Date depatureDateTimePlane;
 	
@@ -17,7 +17,7 @@ public class ValidatorTrainDate {
 	
 	private boolean isSet = false;
 	
-	public ValidatorTrainDate() {
+	public DateValidator() {
 		dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
