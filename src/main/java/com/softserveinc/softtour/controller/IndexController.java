@@ -145,7 +145,7 @@ public class IndexController {
 
         //Tour currentTour = tourService.findOne(currentTourId);
 
-        TrainParser currentTrainParser = new TrainParser("Київ", "Львів", "2014-11-08", "23:00");
+        TrainParser currentTrainParser = new TrainParser("Київ", "Львів", "2014-11-04", "23:00");
 
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@in index");
 
