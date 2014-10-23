@@ -203,7 +203,7 @@
                     <div class="col-sm-4">
                         <div class="input-group backdown">
                             <div>
-                                <img src='\${tour.imgUrl}' class="hotel-img img-circle" id="hotelImg\${id}">
+                                <img src='\${tour.imgUrl}' class="hotel-img-inTour img-circle" id="hotelImg\${id}">
                             </div>
                         </div>
                     </div>
@@ -237,18 +237,18 @@
                         <h4 id="departyreCity\${id}">\${tour.departureCity}</h4>
                     </div>
 
-                    <div class="col-sm-4"></div>
+
 
                     <form role="form" class="form-inline">
 
-                        <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All">
-                            <img src="../img/Transport-Bus-icon.png" width="32" height="32"/>
-                            Як добратися з ... ?
-                            <img src="../img/Transport-Train-icon.png" width="32" height="32"/>
+                        <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All" onclick="getAllTransit(999)">
+                            <span class="glyphicon glyphicon-road"></span>
+                            <span class="glyphicon glyphicon-plane"></span>
+                            &nbsp; Як добратися з ... ?
                         </button>
 
                         <div class="form-group">
-                            <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom-f\${id}" placeholder="Місто">
+                            <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom\${tour.id}" placeholder="Місто">
                         </div>
 
                     </form>
@@ -262,7 +262,7 @@
                                 <img src="../img/Transport-Train-icon.png" width="32" height="32"/>
                             </h3>
 
-                            <table data-toggle="table" data-url="data1.json" data-sort-name="priceFrom" data-sort-order="desc">
+                            <table data-toggle="table" data-url="/transitDates?currentTourId=10&cityFrom=0" data-sort-name="priceFrom" data-sort-order="desc">
                                 <thead>
                                     <tr>
                                         <th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>
@@ -281,7 +281,7 @@
                                 <img src="../img/Transport-Bus-icon.png" width="32" height="32"/>
                             </h3>
 
-                            <table data-toggle="table" data-url="data1.json" data-sort-name="priceFrom" data-sort-order="desc">
+                            <table data-toggle="table" data-url="/transitDates?currentTourId=10&cityFrom=0" data-sort-name="priceFrom" data-sort-order="desc">
                                 <thead>
                                     <tr>
                                         <th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>
@@ -303,7 +303,7 @@
 
         <script id="favoriteTemplate" type="text/x-jquery-tmpl">
             <div class="panel panel-default tourCollapseTitle" id="panel-favorite\${id}">
-                <div class="panel-heading" data-toggle="collapse" href="#panel-element-f\${id}">
+                <div class="panel-heading" data-toggle="collapse" href="#panel-element-f\${tour.id}">
                     <div class="panel-title collapsed" data-parent="#panel-1">
                         <table border="0">
                             <tr>
@@ -323,11 +323,11 @@
                                     <span class="tabulatedTitle">Харчування: </span>
                                     <span class="tabTitleFont">\${tour.food}</span>
                                 </td>
-                                <td width="230">
+                                <td width="300">
                                     <span class="tabulatedTitle">Дата вильоту: </span>
-                                    <span class="tabTitleFont">\${tour.date}</span>
+                                    <span class="tabTitleFont">\${tour.date}&nbsp;&nbsp;&nbsp;&nbsp;\${tour.departureTime}</span>
                                 </td>
-                                <td width="100">
+                                <td width="30">
                                     <span id="deleteButtonF\${id}" data-role="button" class="pull-right clickable">
                                         <i class="glyphicon glyphicon-remove" onclick="delFavFunction(\${id});deleteFavorite(\${id})">
                                         </i>
@@ -337,13 +337,13 @@
                        </table>
                     </div>
                 </div>
-            <div id="panel-element-f\${id}" class="panel-collapse collapse">
+            <div id="panel-element-f\${tour.id}" class="panel-collapse collapse">
                 <div class="panel-body">
 
                     <div class="col-sm-4">
                         <div class="input-group backdown">
                             <div>
-                                <img src='\${tour.hotel.imgUrl}' class="hotel-img img-circle" id="hotelImg\${id}">
+                                <img src='\${tour.hotel.imgUrl}' class="hotel-img-inTour img-circle" id="hotelImg\${id}">
                             </div>
                         </div>
                     </div>
@@ -377,23 +377,21 @@
                         <h4 id="departyreCity\${id}">\${tour.departureCity}</h4>
                     </div>
 
-                    <div class="col-sm-4"></div>
-
                     <form role="form" class="form-inline">
 
-                        <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-F\${id}">
-                            <img src="../img/Transport-Bus-icon.png" width="32" height="32"/>
-                            Як добратися з ... ?
-                            <img src="../img/Transport-Train-icon.png" width="32" height="32"/>
+                        <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-F\${tour.id}" onclick="getAllTransit(\${tour.id})">
+                            <span class="glyphicon glyphicon-road"></span>
+                            <span class="glyphicon glyphicon-plane"></span>
+                            &nbsp; Як добратися з ... ?
                         </button>
 
                         <div class="form-group">
-                            <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom-f\${id}" placeholder="Місто">
+                            <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom\${tour.id}" placeholder="Місто">
                         </div>
 
                     </form>
 
-                    <div id="transitInfo-All-F\${id}" class="collapse">
+                    <div id="transitInfo-All-F\${tour.id}" class="collapse">
 
                         <div class="panel panel-success col-sm-12">
 
@@ -402,7 +400,7 @@
                                 <img src="../img/Transport-Train-icon.png" width="32" height="32"/>
                             </h3>
 
-                            <table data-toggle="table" data-url="data1.json">
+                            <table data-toggle="table" data-url="/transitDates?currentTourId=10&cityFrom=0">
                                 <thead>
                                     <tr>
                                         <th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>
@@ -421,7 +419,7 @@
                                 <img src="../img/Transport-Bus-icon.png" width="32" height="32"/>
                             </h3>
 
-                            <table data-toggle="table" data-url="data1.json">
+                            <table data-toggle="table" data-url="/transitDates?currentTourId=10&cityFrom=0">
                                 <thead>
                                 <tr>
                                     <th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>
@@ -447,7 +445,7 @@
 
         <script id="historyTemplate" type="text/x-jquery-tmpl">
             <div class="panel panel-default tourCollapseTitle" id="panel-history\${id}">
-                <div class="panel-heading" data-toggle="collapse" href="#panel-element-h\${id}">
+                <div class="panel-heading" data-toggle="collapse" href="#panel-element-h\${tour.id}">
                     <div class="panel-title collapsed" data-parent="#panel-2">
                         <table border="0">
                             <tr>
@@ -467,23 +465,23 @@
                                     <span class="tabulatedTitle">Харчування: </span>
                                     <span class="tabTitleFont">\${tour.food}</span>
                                 </td>
-                                <td width="230">
+                               <td width="300">
                                     <span class="tabulatedTitle">Дата вильоту: </span>
-                                    <span class="tabTitleFont">\${tour.date}</span>
+                                    <span class="tabTitleFont">\${tour.date}&nbsp;&nbsp;&nbsp;&nbsp;\${tour.departureTime}</span>
                                 </td>
-                                <td width="100">
+                                <td width="30">
                                 </td>
                             </tr>
                        </table>
                     </div>
                 </div>
-            <div id="panel-element-h\${id}" class="panel-collapse collapse">
+            <div id="panel-element-h\${tour.id}" class="panel-collapse collapse">
                 <div class="panel-body">
 
                     <div class="col-sm-4">
                         <div class="input-group backdown">
                             <div>
-                                <img src='\${tour.hotel.imgUrl}' class="hotel-img img-circle" id="hotelImg\${id}">
+                                <img src='\${tour.hotel.imgUrl}' class="hotel-img-inTour img-circle" id="hotelImg\${id}">
                             </div>
                         </div>
                     </div>
@@ -517,23 +515,21 @@
                         <h4 id="departyreCity\${id}">\${tour.departureCity}</h4>
                     </div>
 
-                    <div class="col-sm-4"></div>
-
                     <form role="form" class="form-inline">
 
-                        <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-H\${id}">
-                            <img src="../img/Transport-Bus-icon.png" width="32" height="32"/>
-                            Як добратися з ... ?
-                            <img src="../img/Transport-Train-icon.png" width="32" height="32"/>
+                        <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-H\${tour.id}" onclick="getAllTransit(\${tour.id})">
+                            <span class="glyphicon glyphicon-road"></span>
+                            <span class="glyphicon glyphicon-plane"></span>
+                            &nbsp; Як добратися з ... ?
                         </button>
 
                         <div class="form-group">
-                            <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom-h\${id}" placeholder="Місто">
+                            <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom\${tour.id}" placeholder="Місто">
                         </div>
 
                     </form>
 
-                    <div id="transitInfo-All-H\${id}" class="collapse">
+                    <div id="transitInfo-All-H\${tour.id}" class="collapse">
 
                         <div class="panel panel-success col-sm-12">
 
@@ -542,7 +538,7 @@
                                 <img src="../img/Transport-Train-icon.png" width="32" height="32"/>
                             </h3>
 
-                            <table data-toggle="table" data-url="data1.json">
+                            <table data-toggle="table" data-url="/transitDates?currentTourId=10&cityFrom=0">
                                 <thead>
                                     <tr>
                                         <th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>
@@ -561,7 +557,7 @@
                                 <img src="../img/Transport-Bus-icon.png" width="32" height="32"/>
                             </h3>
 
-                            <table data-toggle="table" data-url="data1.json">
+                            <table data-toggle="table" data-url="/transitDates?currentTourId=10&cityFrom=0">
                                 <thead>
                                 <tr>
                                     <th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>

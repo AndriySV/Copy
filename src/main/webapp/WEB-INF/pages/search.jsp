@@ -3,11 +3,11 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <div>
 <div id="left_div" class="form">
-    <form class="form-horizontal" role="form" action="/search/result">
+    <form class="form-horizontal" role="form" name="form" id="form" action="/search/result">
         <div class="form-group">
             <div class="col-sm-6">
                 <p>Країна:</p>
-                <select class="form-control" id="Countryselector">
+                <select class="form-control" id="country" name="country" onchange="makeSelect(this.selectedIndex)">
                     <option>Єгипет</option>
                     <option>Греція</option>
                     <option>Туреччина</option>
@@ -15,47 +15,58 @@
             </div>
             <div class="col-sm-6">
                 <p>Регіон:</p>
-                <select class="form-control" id="Regionselector">
-                    <option>Дахаб</option>
-                    <option>Макаді Бей</option>
-                    <option>Марса Алам</option>
+                <select class="form-control" id="region" name="region">
+                    <option value="N/A">N/A</option>
+                    <%--<option>Дахаб</option>--%>
+                    <%--<option>Макаді Бей</option>--%>
+                    <%--<option>Марса Алам</option>--%>
+                    <%--<option>Аланья</option>--%>
                 </select>
             </div>
             <div class="col-sm-6">
                 <p>Готель:</p>
 
-                <input id="rating" value="0" type="number" class="rating" min=0 max=5 step=1
-                       data-size="xs"
-                       data-show-clear="false" data-show-caption="false">
+                    <label>1*</label>
+                    <input type="checkbox" value="1" id="oneStar" name="oneStar">
+                    <label>2*</label>
+                    <input type="checkbox" value="2" id="twoStar" name="twoStar">
+                    <label>3*</label>
+                    <input type="checkbox" value="3" id="threeStar" name="threeStar">
+                    <label>4*</label>
+                    <input type="checkbox" value="4" id="fourStar" name="fourStar">
+                    <label>5*</label>
+                    <input type="checkbox" value="5" id="fiveStar" name="fiveStar">
+
+
             </div>
             <div class="col-sm-6">
                 <p>Харчування:</p>
 
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="">
-                        HB&nbsp
+                        <input type="checkbox" value="HB" id="foodOne" name="foodOne">
+                        HB
                     </label>
                     <label>
-                        <input type="checkbox" value="">
-                        BB&nbsp
+                        <input type="checkbox" value="BB" id="foodTwo" name="foodTwo">
+                        BB
                     </label>
                     <label>
-                        <input type="checkbox" value="">
-                        FB&nbsp
+                        <input type="checkbox" value="FB" id="foodThree" name="foodThree">
+                        FB
                     </label>
                     <br>
                     <label>
-                        <input type="checkbox" value="">
-                        AI&nbsp
+                        <input type="checkbox" value="AI" id="foodFour" name="foodFour">
+                        AI
                     </label>
                     <label>
-                        <input type="checkbox" value="">
-                        UAI&nbsp
+                        <input type="checkbox" value="UAI" id="foodFive" name="foodFive">
+                        UAI
                     </label>
                     <label>
-                        <input type="checkbox" value="">
-                        RO &nbsp
+                        <input type="checkbox" value="RO" id="foodSix" name="foodSix">
+                        RO
                     </label>
                 </div>
             </div>
@@ -63,7 +74,7 @@
             <p>Розміщення в номері:</p>
             <div class="col-sm-6">
                 <p>Дорослі:</p>
-                <select class="form-control">
+                <select class="form-control" id="adults" name="adults">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -73,7 +84,7 @@
             </div>
             <div class="col-sm-6">
                 <p>Діти:</p>
-                <select class="form-control">
+                <select class="form-control" id="children" name="children">
                     <option>0</option>
                     <option>1</option>
                     <option>2</option>
@@ -86,17 +97,17 @@
             <p>Дата вильоту:</p>
             <div class="col-sm-6">
                 <p>З:</p>
-                <input type="text" id="from" class="form-control" >
+                <input type="text" class="form-control" id="dateFrom" name="dateFrom" placeholder="11.11.14">
             </div>
             <div class="col-sm-6">
                 <p>По:</p>
-                <input type="text" id="to" class="form-control" >
+                <input type="text" class="form-control" id="dateTo" name="dateTo" placeholder="31.12.14">
             </div>
             <div class="col-sm-6">
                 <p>Кількість ночей:</p>
                 <div class="col-sm-6">
                     <p>Від:</p>
-                    <select class="form-control">
+                    <select class="form-control" id="nightFrom" name="nightFrom">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -123,7 +134,7 @@
 
                 <div class="col-sm-6">
                     <p>До:</p>
-                    <select class="form-control">
+                    <select class="form-control" id="nightTo" name="nightTo">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -152,11 +163,11 @@
             <div class="col-sm-6" style="margin-bottom: 5px;">
                 <div class="col-sm-6">
                     <p>З:</p>
-                    <input type="text" class="form-control" >
+                    <input type="text" class="form-control" id="priceFrom" name="priceFrom">
                 </div>
                 <div class="col-sm-6">
                     <p>До:</p>
-                    <input type="text" class="form-control" >
+                    <input type="text" class="form-control" id="priceTo" name="priceTo">
                 </div>
             </div>
         </div>
@@ -228,13 +239,15 @@
                          <span class="tabTitleFont cursor-pointer" >Готель: </span>
                          <span id="tourHotelName-f\${id}" class="tabulatedTitle cursor-pointer">\${hotel.name}</span>
                          <span class="tabTitleFont cursor-pointer" >Тривалість туру: </span>
-                         <span id="tourDays-f\${id}" class="tabulatedTitle cursor-pointer">\${days} Днів</span>
+                         <span id="tourDays-f\${id}" class="tabulatedTitle cursor-pointer">\${days} Дні(Днів)</span>
                          <span class="tabTitleFont cursor-pointer">Вартість туру: </span>
                          <span id="tourPrice-f\${id}" class="tabulatedTitle cursor-pointer">\${price} $</span>
                          <span class="tabTitleFont cursor-pointer">Харчування: </span>
                          <span id="tourFood-f\${id}" class="tabulatedTitle cursor-pointer">\${food}</span>
                          <span class="tabTitleFont cursor-pointer">Дата вильоту: </span>
                          <span id="tourDepartureDate-f\${id}" class="tabulatedTitle cursor-pointer">\${date}</span></span>
+                         <span class="tabTitleFont cursor-pointer">Місто вильоту: </span>
+                         <span id="tourDepartureDate-f\${id}" class="tabulatedTitle cursor-pointer">\${departureCity}</span></span>
                          <security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
                          <span id="deleteButtonF\${id}" data-role="button" class="pull-right" data-toogle="tooltip" data-placemant="top" title="Додати до улюблених"><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(\${id})"></i></span>
                          </security:authorize>
@@ -246,5 +259,34 @@
                 </div>
             </div>
         </div>
+</script>
+<script type="text/javascript">
+
+    var regions = new Array(
+            "Дахаб,Макаді Бей,Марса Алам",
+            "Аланья"
+    );
+    function getRegions(index){
+        var aRegions = regions[index];
+        return aRegions.split(",");
+    }
+    function makeSelect(index){
+        var currentRegion = getRegions(index);
+        var currentRegionCnt = currentRegion.length;
+        var regionList = document.getElementById("region");
+        var regionListCnt = regionList.options.length;
+        regionList.length=0;
+        for(i = 0; i < currentRegionCnt; i++){
+            if (document.createElement){
+                var newRegionList = document.createElement("OPTION");
+                newRegionList.text = currentRegion[i];
+                newRegionList.value = currentRegion[i];
+                (regionList.options.add) ? regionList.options.add(newRegionList) : regionList.add(newRegionList, null);
+            } else {
+                regionList.options[i] = new Option(currentRegion[i], currentRegion[i], false, false);
+            }
+        }
+    }
+    makeSelect(document.getElementById("country").selectedIndex);
 </script>
 
