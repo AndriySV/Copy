@@ -54,6 +54,16 @@ public class ItTourParser implements ParsersConstants {
         hotelElementMap = new HashMap<>();
     }
 
+    public ItTourParser(Hotel hotel, int pageNumber) {
+        this.tourList = new ArrayList<>();
+        this.country = hotel.getRegion().getCountry().getName();
+        this.adults = 2;
+        this.children = 0;
+        urlGenerator = new ItTourParserUrlGenerator();
+        this.url = urlGenerator.createSearchUrlByHotel(hotel, pageNumber);
+        hotelElementMap = new HashMap<>();
+    }
+
     public List<Tour> parse() {
         Document document = connect(url);
         loadDepartureCityProperties();
@@ -144,7 +154,6 @@ public class ItTourParser implements ParsersConstants {
             java.sql.Date tourDate = tourDate(tourDateSt);
             int tourDays = Integer.parseInt(tourDaysSt);
             String departureCity = tourDepartureCity(tourDepartureCitySt);
-            //TODO there are no departure time on site
             Time departureTime = tourDepartureTime(tourDepartureTimeSt);
             BigDecimal tourPrice = new BigDecimal(Integer.parseInt(tourPriceSt));
             Hotel hotel = tourHotel(hotelName, Integer.parseInt(hotelStars), hotelRegion);
@@ -221,7 +230,7 @@ public class ItTourParser implements ParsersConstants {
         SimpleDateFormat format = new SimpleDateFormat(TIME_FORMAT);
         Date javaUtilDate;
         Time timeDeparture = null;
-        List<Element> elementList = document.getElementsByClass("tr_flight_to").get(0).getElementsByTag("td");
+        List<Element> elementList = document.getElementsByClass(CLASS_TR_FLIGHT_TO).get(0).getElementsByTag(TAG_TD);
         String departureDate = elementList.get(3).text();
         departureDate = departureDate.substring(0, departureDate.length() - 3);
         String departureTime = elementList.get(4).text();
@@ -287,6 +296,7 @@ public class ItTourParser implements ParsersConstants {
           String country, String region, int [] hotelStars, String[] food, int adults, int children, String dataFrom, String dataTill,
           int nightsFrom, int nightsTill, int priceFrom, int priceTo, int pageNumber
         */
+        /*
         Set<Integer> hotelStars = new HashSet<>();
         hotelStars.add(3);
         hotelStars.add(5);
@@ -310,5 +320,16 @@ public class ItTourParser implements ParsersConstants {
         parser.setHotelImgLinkAndDepartureTime(tour);
         System.out.println(tour.getHotel().getImgUrl());
         System.out.println(tour.getDepartureTime());
+        */
+
+        Hotel hotel = new Hotel("Adela Hotel", 3, new Region("Стамбул", new Country("Турция")));
+        hotel.setId(59466);
+        hotel.getRegion().setId(5498);
+        hotel.getRegion().getCountry().setId(318);
+        ItTourParser parser = new ItTourParser(hotel, 2);
+        List<Tour> tours = parser.parse();
+        for(Tour tour : tours){
+            System.out.println(tour);
+        }
     }
 }

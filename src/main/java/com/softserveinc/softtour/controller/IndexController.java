@@ -1,8 +1,10 @@
 package com.softserveinc.softtour.controller;
 
+import com.softserveinc.softtour.bean.BusRoute;
 import com.softserveinc.softtour.bean.TrainRoute;
 import com.softserveinc.softtour.entity.*;
 import com.softserveinc.softtour.entity.template.Food;
+import com.softserveinc.softtour.parsers.BusParser;
 import com.softserveinc.softtour.parsers.ItTourParser;
 import com.softserveinc.softtour.parsers.TrainParser;
 import com.softserveinc.softtour.service.*;
@@ -22,7 +24,7 @@ import java.util.List;
 @Controller
 //@RequestMapping
 public class IndexController {
-
+    ItTourParser parser;
     @Autowired
     private TourService tourService;
     @Autowired
@@ -37,7 +39,7 @@ public class IndexController {
     private RegionService regionService;
     @Autowired
     private HistoryRecordService historyRecordService;
-
+    Favorite favorite;
     @RequestMapping(value = "/result", method = RequestMethod.POST)
      public @ResponseBody List<Tour> findTours(
             @RequestParam(value = "country", required = true) String country,
@@ -53,16 +55,18 @@ public class IndexController {
             @RequestParam(value = "country", required = true) String country,
             @RequestParam(value = "minPrice", required = false) Integer minPrice,
             @RequestParam(value = "maxPrice", required = false) Integer maxPrice,
-            @RequestParam(value = "numberOfPage", required = true) Integer numberOfPage){
+            @RequestParam(value = "numberOfPage", required = true) Integer numberOfPage,
+            @RequestParam(value = "travelersAdult", required = true)Integer travelersAdult,
+            @RequestParam(value = "travelersChildren", required = true)Integer travelersChildren){
         //return tourService.findAll();
-        ItTourParser parser = new ItTourParser(country, 3, 1 ,minPrice, maxPrice, numberOfPage);
+        parser = new ItTourParser(country, travelersAdult, travelersChildren,minPrice, maxPrice, numberOfPage);
         List<Tour> listTour = parser.parse();
         return listTour;
 
     }
 
     @RequestMapping(value="/saveFavorites", method = RequestMethod.POST)
-    public @ResponseBody void saveFavorites(@RequestBody(required = true) final Tour currentTour){
+    public void saveFavorites(@RequestBody(required = true) final Tour currentTour){
         java.util.Date utilDate = new java.util.Date (System.currentTimeMillis());
         Date sqlDate = new Date(utilDate.getTime());
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -81,19 +85,25 @@ public class IndexController {
         else
             currentHotel.setRegion(regionService.save(currentRegion));
         Hotel maybeHotel = hotelService.findByName(currentHotel.getName());
-        if(maybeHotel!=null)
+        if(maybeHotel!=null) {
+            maybeHotel.setImgUrl(currentTour.getHotel().getImgUrl());
+            maybeHotel.setStars(currentTour.getHotel().getStars());
             currentTour.setHotel(maybeHotel);
+            hotelService.save(maybeHotel);
+        }
         else
             {hotelService.setZero(currentHotel);
              currentTour.setHotel(hotelService.save(currentHotel));}
         currentTour.setDepartureCity("Null");
         currentTour.setDepartureTime(new Time(12354));
         Tour tourToFav=tourService.save(currentTour);
-        Favorite favorite=new Favorite(sqlDate,currentUser,tourToFav);
+        favorite=new Favorite(sqlDate,currentUser,tourToFav);
+
         favoriteService.save(favorite);
     }
     @RequestMapping(value="/saveHistoryRecord", method = RequestMethod.POST)
-    public @ResponseBody void saveHistoryRecord(@RequestBody(required = true) final Tour currentTour){
+    public void saveHistoryRecord(@RequestBody(required = true) final Tour currentTour){
+        parser.setHotelImgLinkAndDepartureTime(currentTour);
         java.util.Date utilDate = new java.util.Date (System.currentTimeMillis());
         Date sqlDate = new Date(utilDate.getTime());
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -112,8 +122,12 @@ public class IndexController {
         else
             currentHotel.setRegion(regionService.save(currentRegion));
         Hotel maybeHotel = hotelService.findByName(currentHotel.getName());
-        if(maybeHotel!=null)
+        if(maybeHotel!=null){
+            maybeHotel.setImgUrl(currentTour.getHotel().getImgUrl());
+            maybeHotel.setStars(currentTour.getHotel().getStars());
             currentTour.setHotel(maybeHotel);
+            hotelService.save(maybeHotel);
+             }
         else
         {hotelService.setZero(currentHotel);
             currentTour.setHotel(hotelService.save(currentHotel));}
@@ -125,51 +139,45 @@ public class IndexController {
     }
 
 
+    @RequestMapping(value="/deleteFavorites", method = RequestMethod.POST)
+    public void deleteFavorites(){
+        favoriteService.delete(favorite.getId());
+    }
+    @RequestMapping(value="/openCollapse", method = RequestMethod.POST)
+    public @ResponseBody Tour openCollapse(@RequestBody(required = true) final Tour currentTour){
 
+        Hotel hotel = hotelService.findByName(currentTour.getHotel().getName());
+        currentTour.setHotel(hotel);
+        return currentTour;
+    }
 
-
-//    @RequestMapping(value="/transitDates", method = RequestMethod.POST)
-//    public @ResponseBody void getTrainTransits(@RequestBody final Tour tour){
-//        System.out.println(tour);
-//        System.out.println(tour);
-//        System.out.println(tour);
-//        System.out.println(tour);
-//    }
-
-
-
-    @RequestMapping(value="/transitDates", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value="/trainTransitDates", method = {RequestMethod.GET, RequestMethod.POST})
     public @ResponseBody ArrayList<TrainRoute> getTrainTransits(
                         @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
                         @RequestParam(value = "cityFrom", required = true) String cityFrom){
 
-        System.out.println(currentTourId);
-        System.out.println(currentTourId);
-        System.out.println(currentTourId);
-        System.out.println(currentTourId);
-
         Tour currentTour = tourService.findOne(currentTourId);
 
-        TrainParser currentTrainParser = new TrainParser("Київ", "Львів", "2014-11-08", "23:00");
-//        TrainParser currentTrainParser = new TrainParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), currentTour.getDepartureTime());
+        String departureTime = currentTour.getDepartureTime().toString().substring(0,currentTour.getDepartureTime().toString().length()-3);
 
-//        System.out.println(cityFrom + currentTour.getDepartureCity() + currentTour.getDate().toString() + currentTour.getDepartureTime().toString());
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@in index");
-        System.out.println(currentTour);
-
+        TrainParser currentTrainParser = new TrainParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), departureTime);
         ArrayList<TrainRoute> routesList =  currentTrainParser.getRoutes();
 
-//        //TEST list
-//        ArrayList<TrainRoute> testList =  new ArrayList<TrainRoute>();
-//        testList.add(new TrainRoute("111О","Харків","Львів","2014-11-10","04:08","09:14","13:22","199.40","673.20"));
-//        System.out.println(testList);
-
-        System.out.println(routesList);
-
-        for (TrainRoute route : routesList) {
-			System.out.println(route);
-		}
         return routesList;
     }
 
+    @RequestMapping(value="/busTransitDates", method = {RequestMethod.GET, RequestMethod.POST})
+    public @ResponseBody List<BusRoute> getBusTransits(
+            @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
+            @RequestParam(value = "cityFrom", required = true) String cityFrom){
+
+        Tour currentTour = tourService.findOne(currentTourId);
+
+        String departureTime = currentTour.getDepartureTime().toString().substring(0,currentTour.getDepartureTime().toString().length()-3);
+
+        BusParser currentBusParser = new BusParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), departureTime);
+        List<BusRoute> routesList =  currentBusParser.parse();
+
+        return routesList;
+    }
 }
