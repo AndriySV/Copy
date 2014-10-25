@@ -233,15 +233,6 @@
             <artifactId>mail</artifactId>
             <version>1.4.7</version>
         </dependency>
-        
-        
-        <!-- TODO write versions in properties -->
-        <!-- slf4j -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.7</version>
-		</dependency>
 
     </dependencies>
 
@@ -253,6 +244,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin-version}</version>
                 <configuration>
+                    <encoding>UTF-8</encoding>
                     <source>${java-version}</source>
                     <target>${java-version}</target>
                 </configuration>
@@ -277,10 +269,13 @@
 
             <configuration>
                 <driver>com.mysql.jdbc.Driver</driver>
-                <url>jdbc:mysql://localhost:3306/</url>
+                <url>jdbc:mysql://localhost:3306/?useUnicode=true&amp;characterEncoding=utf8</url>
                 <username>root</username>
                 <password>root</password>
                 <settingsKey>sensibleKey</settingsKey>
+                <driverProperties>characterEncoding=utf8,
+                    connectionCollation=utf8_general_ci,
+                    sql_mode=STRICT_TRANS_TABLES</driverProperties>
             </configuration>
 
             <executions>
@@ -305,15 +300,17 @@
                         <goal>execute</goal>
                     </goals>
                     <configuration>
-                        <orderFile>ascending</orderFile>
-                        <fileset>
-                            <basedir>${basedir}</basedir>
-                            <includes>
-                                <include>src/main/resources/softtour_data.sql</include>
-                            </includes>
-                        </fileset>
+                        <autocommit>true</autocommit>
+                            <srcFiles>
+                                <srcFile>src/main/resources/country.sql</srcFile>
+                                <srcFile>src/main/resources/region.sql</srcFile>
+                                <srcFile>src/main/resources/hotel.sql</srcFile>
+                                <srcFile>src/main/resources/softtour_data.sql</srcFile>
+                            </srcFiles>
                     </configuration>
                 </execution>
+
+
 
             </executions>
         </plugin>
