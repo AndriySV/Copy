@@ -1,0 +1,134 @@
+.hotels-filter {
+    background-color: rgba(139, 150, 143, 0.30);
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 4px 5px 38px #4b4b4b;
+    margin-bottom: 20px;
+    width: 210px;
+}
+
+.filter-element {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.filter-button {
+    margin-top: 10px;
+}
+
+.hotels-result {
+    margin-left: 65px;
+}
+.hotel-panel{
+    background-color: rgba(139, 150, 143, 0.30);
+    margin-top: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 5px 38px #4b4b4b;
+}
+
+.hotel-btn{
+    border-radius: 15px;
+    box-shadow: 3px 4px 10px #4b4b4b;
+}
+
+.hotel-img {
+    height: 170px;
+    width: 170px;
+}
+
+#filter {
+    margin: 15px;
+}
+
+.hotel_search{
+    width: 240px;
+}
+
+.country_selector {
+    width: 100%;
+}
+
+.pagin{
+    margin-left: 30px;
+}
+
+.comment_fb{
+    margin-top: 20px;
+    margin-left: 25px;
+    width: 520px;
+    max-width: 520px;
+    max-height: 200px;
+}
+
+.stars_fb{
+    text-align: center;
+}
+
+
+.modal-comment{
+    width: 800px;
+}
+
+.modal-tours{
+    width: 65%;
+}
+
+.comment-body{
+    background-color: rgba(139, 150, 143, 0.10);
+}
+
+.comment {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    padding: 3px 10px;
+    margin-bottom: 15px;
+    margin-left: 0;
+}
+
+.commentInfo, .commentDateStamp {
+    color: #333333;
+    font: normal 12px "Segoe UI", Arial, Sans-serif;
+    display: inline-block;
+    vertical-align: top;
+    padding: 0;
+    line-height: 18px;
+    width: 140px;
+}
+.commentInfo{
+    margin-top: 25px;
+    text-align: center;
+}
+
+.comment
+{
+    position: relative;
+    width: 600px;
+    padding: 12px;
+    color: #fff;
+    font: normal 12px "Segoe UI", Arial, Sans-serif;
+    background-color: rgb(53, 58, 56);
+    border-radius: 24px;
+}
+
+.comment:after
+{
+    content: '';
+    position: relative;
+    border-style: solid;
+    border-width: 15px 28px 15px 0;
+    border-color: transparent rgb(53, 58, 56);
+    display: block;
+    width: 0;
+    z-index: 1;
+    left: -28px;
+}
+
+.avatar{
+    width: 70px;
+    height: 70px;
+}
+
+.preloader{
+    margin-left: 45%;
+}
