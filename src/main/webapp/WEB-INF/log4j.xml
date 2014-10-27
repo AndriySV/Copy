@@ -4,10 +4,9 @@
  "-//APACHE//DTD LOG4J 1.2//EN" "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
 
 <log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
-	
+
 	<appender name="database" class="org.apache.log4j.jdbc.JDBCAppender">
 	
-		<!-- TODO need to use spring-data  -->
 		<param name="URL" value="jdbc:mysql://localhost:3306/softtour" />
 		<param name="driver" value="com.mysql.jdbc.Driver" />
 		<param name="user" value="root" />

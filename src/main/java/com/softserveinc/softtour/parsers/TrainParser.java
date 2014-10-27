@@ -3,16 +3,10 @@ package com.softserveinc.softtour.parsers;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
-
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-
 
 import com.softserveinc.softtour.bean.TrainRoute;
 import com.softserveinc.softtour.util.NoRoutesException;
@@ -36,8 +30,6 @@ public class TrainParser {
 	private ArrayList<TrainRoute> routesList;
 	private TrainParserUtil trainParserUtil;
 	private DateValidator dateValidator;
-	
-	private static final Logger LOG = Logger.getLogger(TrainParser.class);
 	
 	private boolean isSetDepatureDate = true;
 	private boolean isSetPreviousDate = true;
@@ -246,9 +238,4 @@ public class TrainParser {
 		
 		routesList.add(trainRoute);
 	}
-
-	public static void main(String[] args) {
-		
-	}
-
 }

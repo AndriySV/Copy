@@ -150,6 +150,7 @@ CREATE TABLE historyrequest (
 
 );
 
+
 CREATE TABLE LOGS (
 	id bigint(20) NOT NULL AUTO_INCREMENT,
 	date datetime NOT NULL,
