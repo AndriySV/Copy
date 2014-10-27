@@ -37,7 +37,7 @@ public class TrainParser {
 	private TrainParserUtil trainParserUtil;
 	private DateValidator dateValidator;
 	
-//	private static final Logger LOG = Logger.getLogger(TrainParser.class);
+	private static final Logger LOG = Logger.getLogger(TrainParser.class);
 	
 	private boolean isSetDepatureDate = true;
 	private boolean isSetPreviousDate = true;
@@ -248,7 +248,7 @@ public class TrainParser {
 	}
 
 	public static void main(String[] args) {
-//		LOG.warn("Into main");
+		
 	}
 
 }
