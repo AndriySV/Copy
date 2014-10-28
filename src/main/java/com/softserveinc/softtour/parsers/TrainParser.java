@@ -2,6 +2,7 @@ package com.softserveinc.softtour.parsers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -85,7 +86,7 @@ public class TrainParser {
 		while (i < MAX_NUMER_OF_ATTEMPTS) {
 			++i;
 			try {
-				document = Jsoup.connect("h"+ url).timeout(CONNECTION_TIMEOUT).get();
+				document = Jsoup.connect(url).timeout(CONNECTION_TIMEOUT).get();
 			} catch (IOException e) {
 				LOG.error(e.getMessage() + "Connection error. Cannot connect to the site http://ticket.turistua.com/");
 				continue;
@@ -241,4 +242,13 @@ public class TrainParser {
 		
 		routesList.add(trainRoute);
 	}
+
+	//TODO DEL !!!
+    public static void main(String[] args) {
+        TrainParser trainParser = new TrainParser("Львів", "Київ", "2014-11-12", "11:30");
+        List<TrainRoute> list = trainParser.getRoutes();
+        for(TrainRoute route : list){
+            System.out.println(route);
+        }
+    }
 }

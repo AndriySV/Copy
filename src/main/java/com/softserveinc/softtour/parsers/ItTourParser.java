@@ -18,7 +18,6 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ItTourParser implements ParsersConstants {
@@ -169,11 +168,10 @@ public class ItTourParser implements ParsersConstants {
     }
 
     private java.sql.Date tourDate(String date){
-        SimpleDateFormat format = new SimpleDateFormat(DAY_FORMAT);
         Date javaUtilDate;
         java.sql.Date sqlDate = null;
         try {
-            javaUtilDate = format.parse(date);
+            javaUtilDate = SIMPLE_DATE_FORMAT.parse(date);
             sqlDate = new java.sql.Date(javaUtilDate.getTime());
         } catch (ParseException e) {
              //TODO improve this block
@@ -192,11 +190,10 @@ public class ItTourParser implements ParsersConstants {
     }
 
     private Time tourDepartureTime(String departureTime){
-        SimpleDateFormat format = new SimpleDateFormat(DAY_FORMAT);
         Date javaUtilDate;
         Time timeDeparture = null;
         try {
-            javaUtilDate = format.parse(departureTime);
+            javaUtilDate = SIMPLE_DATE_FORMAT.parse(departureTime);
             timeDeparture = new Time(javaUtilDate.getTime());
         } catch (ParseException e) {
             //TODO improve this block
@@ -227,17 +224,16 @@ public class ItTourParser implements ParsersConstants {
         }
         tour.getHotel().setImgUrl(imgUrl);
 
-        SimpleDateFormat format = new SimpleDateFormat(TIME_FORMAT);
         Date javaUtilDate;
         Time timeDeparture = null;
         List<Element> elementList = document.getElementsByClass(CLASS_TR_FLIGHT_TO).get(0).getElementsByTag(TAG_TD);
         String departureDate = elementList.get(3).text();
         departureDate = departureDate.substring(0, departureDate.length() - 3);
         String departureTime = elementList.get(4).text();
-        String dateTime = new StringBuilder(departureDate).append(".").append(departureTime).toString();
+        String dateTime = new StringBuilder(departureDate).append(departureTime).toString();
         System.out.println(dateTime);
         try {
-            javaUtilDate = format.parse(dateTime);
+            javaUtilDate = SIMPLE_DATE_TIME_FORMAT.parse(dateTime);
             timeDeparture = new Time(javaUtilDate.getTime());
         } catch (ParseException e) {
             //TODO improve this block
@@ -296,7 +292,7 @@ public class ItTourParser implements ParsersConstants {
           String country, String region, int [] hotelStars, String[] food, int adults, int children, String dataFrom, String dataTill,
           int nightsFrom, int nightsTill, int priceFrom, int priceTo, int pageNumber
         */
-        /*
+
         Set<Integer> hotelStars = new HashSet<>();
         hotelStars.add(3);
         hotelStars.add(5);
@@ -320,8 +316,8 @@ public class ItTourParser implements ParsersConstants {
         parser.setHotelImgLinkAndDepartureTime(tour);
         System.out.println(tour.getHotel().getImgUrl());
         System.out.println(tour.getDepartureTime());
-        */
 
+        /*
         Hotel hotel = new Hotel("Adela Hotel", 3, new Region("Стамбул", new Country("Турция")));
         hotel.setId(59466);
         hotel.getRegion().setId(5498);
@@ -331,5 +327,6 @@ public class ItTourParser implements ParsersConstants {
         for(Tour tour : tours){
             System.out.println(tour);
         }
+        */
     }
 }
