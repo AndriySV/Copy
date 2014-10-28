@@ -35,9 +35,13 @@
 			/WEB-INF/applicationContext.xml,
 			/WEB-INF/mvc-dispatcher-servlet.xml,
 			/WEB-INF/spring-security.xml,
-            /WEB-INF/spring-mail.xml
+            /WEB-INF/spring-mail.xml,
+            
+            /WEB-INF/scheduler.xml 
 		</param-value>
 	</context-param>
+	
+	<!-- /WEB-INF/spring-batch.xml,  -->
 	
     <!--Spring encoding-->
     <filter>
