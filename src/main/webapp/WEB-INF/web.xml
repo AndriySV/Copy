@@ -39,8 +39,6 @@
 		</param-value>
 	</context-param>
 	
-	<!-- /WEB-INF/spring-test-config.xml  -->
-	
     <!--Spring encoding-->
     <filter>
         <filter-name>characterEncodingFilter</filter-name>
