@@ -87,7 +87,7 @@ public class IndexController {
             tourToFav = tourService.checkTour(currentTour);}
 
         favorite=new Favorite(sqlDate,currentUser,tourToFav);
-        Favorite maybeFavorite = favoriteService.findByUserAndTour(favorite);
+        Favorite maybeFavorite = favoriteService.findByUserAndTour(favorite.getUser(), favorite.getTour());
         if (maybeFavorite==null){
             favoriteService.save(favorite);
             System.out.println("Saved");

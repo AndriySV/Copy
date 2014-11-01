@@ -75,6 +75,14 @@ public class FavoriteServiceImpl implements FavoriteService{
         return favoriteRepository.findByUser(user);
     }
 
+    /**
+     * Returns the list of the favorite's objects from the specified parameters 
+     */
+    @Override
+    public Favorite findByUserAndTour (User user, Tour tour) {
+        return favoriteRepository.findByUserAndTour(user, tour);
+    }
+    
 	/**
 	 *  Returns the list of all favorite's objects which are contained in the table Favorite
 	 */
@@ -82,11 +90,5 @@ public class FavoriteServiceImpl implements FavoriteService{
 	public List<Favorite> findAll() {
 		return favoriteRepository.findAll();
 	}
-
-	//FIXME changed parameters !!!
-    @Override
-    public Favorite findByUserAndTour (User user, Tour tour) {
-        return favoriteRepository.findByUserAndTour(user, tour);
-    }
 
 }
