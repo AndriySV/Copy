@@ -190,4 +190,98 @@ public class HistoryRequest {
     public void setRequestDate(Date requestDate) {
         this.requestDate = requestDate;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + adults;
+		result = prime * result + children;
+		result = prime * result
+				+ ((cityFrom == null) ? 0 : cityFrom.hashCode());
+		result = prime * result + ((country == null) ? 0 : country.hashCode());
+		result = prime * result
+				+ ((dateFrom == null) ? 0 : dateFrom.hashCode());
+		result = prime * result + ((dateTo == null) ? 0 : dateTo.hashCode());
+		result = prime * result + daysFrom;
+		result = prime * result + daysTo;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result
+				+ ((priceFrom == null) ? 0 : priceFrom.hashCode());
+		result = prime * result + ((priceTo == null) ? 0 : priceTo.hashCode());
+		result = prime * result
+				+ ((requestDate == null) ? 0 : requestDate.hashCode());
+		result = prime * result + ((stars == null) ? 0 : stars.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HistoryRequest other = (HistoryRequest) obj;
+		if (adults != other.adults)
+			return false;
+		if (children != other.children)
+			return false;
+		if (cityFrom == null) {
+			if (other.cityFrom != null)
+				return false;
+		} else if (!cityFrom.equals(other.cityFrom))
+			return false;
+		if (country == null) {
+			if (other.country != null)
+				return false;
+		} else if (!country.equals(other.country))
+			return false;
+		if (dateFrom == null) {
+			if (other.dateFrom != null)
+				return false;
+		} else if (!dateFrom.equals(other.dateFrom))
+			return false;
+		if (dateTo == null) {
+			if (other.dateTo != null)
+				return false;
+		} else if (!dateTo.equals(other.dateTo))
+			return false;
+		if (daysFrom != other.daysFrom)
+			return false;
+		if (daysTo != other.daysTo)
+			return false;
+		if (id != other.id)
+			return false;
+		if (priceFrom == null) {
+			if (other.priceFrom != null)
+				return false;
+		} else if (!priceFrom.equals(other.priceFrom))
+			return false;
+		if (priceTo == null) {
+			if (other.priceTo != null)
+				return false;
+		} else if (!priceTo.equals(other.priceTo))
+			return false;
+		if (requestDate == null) {
+			if (other.requestDate != null)
+				return false;
+		} else if (!requestDate.equals(other.requestDate))
+			return false;
+		if (stars == null) {
+			if (other.stars != null)
+				return false;
+		} else if (!stars.equals(other.stars))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
+	}
+    
+    
 }

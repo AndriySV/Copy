@@ -1,6 +1,5 @@
 package com.softserveinc.softtour.service.Impl;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,14 +75,6 @@ public class FavoriteServiceImpl implements FavoriteService{
         return favoriteRepository.findByUser(user);
     }
 
-    /**
-	 * Returns the list of the favorite's objects with the specified parameters
-	 */
-	@Override
-	public List<Favorite> findByAnyParameters(long id, Date date, User user, Tour tour) {
-		return favoriteRepository.findByIdOrDateOrUserOrTour(id, date, user, tour);
-	}
-	
 	/**
 	 *  Returns the list of all favorite's objects which are contained in the table Favorite
 	 */
@@ -92,9 +83,10 @@ public class FavoriteServiceImpl implements FavoriteService{
 		return favoriteRepository.findAll();
 	}
 
+	//FIXME changed parameters !!!
     @Override
-    public Favorite findByUserAndTour (Favorite favorite) {
-        return favoriteRepository.findByUserAndTour(favorite.getUser(),favorite.getTour());
+    public Favorite findByUserAndTour (User user, Tour tour) {
+        return favoriteRepository.findByUserAndTour(user, tour);
     }
 
 }
