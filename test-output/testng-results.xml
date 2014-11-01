@@ -1,185 +1,163 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="6" passed="6">
+<testng-results skipped="0" failed="0" total="5" passed="5">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="23561" started-at="2014-10-29T20:48:37Z" finished-at="2014-10-29T20:49:01Z">
+  <suite name="Default suite" duration-ms="15701" started-at="2014-10-31T23:43:03Z" finished-at="2014-10-31T23:43:19Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="23561" started-at="2014-10-29T20:48:37Z" finished-at="2014-10-29T20:49:01Z">
-      <class name="com.softserveinc.softtour.service.TestUserServiceImpl">
-        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="17" started-at="2014-10-29T22:48:37Z" finished-at="2014-10-29T22:48:37Z">
+    <test name="Default test" duration-ms="15701" started-at="2014-10-31T23:43:03Z" finished-at="2014-10-31T23:43:19Z">
+      <class name="com.softserveinc.softtour.service.TestFavoriteServiceImpl">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="15" started-at="2014-11-01T01:43:03Z" finished-at="2014-11-01T01:43:03Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestClass -->
-        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="22623" started-at="2014-10-29T22:48:37Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2014-10-29T22:49:00Z">
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="14258" started-at="2014-11-01T01:43:03Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2014-11-01T01:43:17Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextPrepareTestInstance -->
-        <test-method status="PASS" signature="createNewUser()[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="createNewUser" is-config="true" duration-ms="184" started-at="2014-10-29T22:49:00Z" finished-at="2014-10-29T22:49:00Z">
+        <test-method status="PASS" signature="createFavorite()[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="createFavorite" is-config="true" duration-ms="534" started-at="2014-11-01T01:43:17Z" finished-at="2014-11-01T01:43:18Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- createNewUser -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="4" started-at="2014-10-29T22:49:00Z" finished-at="2014-10-29T22:49:00Z">
+        </test-method> <!-- createFavorite -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2014-11-01T01:43:18Z" finished-at="2014-11-01T01:43:18Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.softserveinc.softtour.service.TestUserServiceImpl.testSave()]]>
+                <![CDATA[public void com.softserveinc.softtour.service.TestFavoriteServiceImpl.testSave()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="testSave()[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="testSave" duration-ms="383" started-at="2014-10-29T22:49:00Z" finished-at="2014-10-29T22:49:01Z">
+        <test-method status="PASS" signature="testSave()[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="testSave" duration-ms="76" started-at="2014-11-01T01:43:18Z" finished-at="2014-11-01T01:43:18Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSave -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2014-10-29T22:49:01Z" finished-at="2014-10-29T22:49:01Z">
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2014-11-01T01:43:18Z" finished-at="2014-11-01T01:43:18Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.softserveinc.softtour.service.TestUserServiceImpl.testSave()]]>
+                <![CDATA[public void com.softserveinc.softtour.service.TestFavoriteServiceImpl.testSave()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2014-10-29T22:49:01Z" finished-at="2014-10-29T22:49:01Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2014-11-01T01:43:18Z" finished-at="2014-11-01T01:43:18Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.softserveinc.softtour.service.TestUserServiceImpl.testFindById()]]>
+                <![CDATA[public void com.softserveinc.softtour.service.TestFavoriteServiceImpl.testFindById()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="testFindById()[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="testFindById" duration-ms="12" started-at="2014-10-29T22:49:01Z" depends-on-methods="com.softserveinc.softtour.service.TestUserServiceImpl.testSave" finished-at="2014-10-29T22:49:01Z">
+        <test-method status="PASS" signature="testFindById()[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="testFindById" duration-ms="18" started-at="2014-11-01T01:43:18Z" depends-on-methods="com.softserveinc.softtour.service.TestFavoriteServiceImpl.testSave" finished-at="2014-11-01T01:43:18Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testFindById -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2014-10-29T22:49:01Z" finished-at="2014-10-29T22:49:01Z">
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2014-11-01T01:43:18Z" finished-at="2014-11-01T01:43:18Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.softserveinc.softtour.service.TestUserServiceImpl.testFindById()]]>
+                <![CDATA[public void com.softserveinc.softtour.service.TestFavoriteServiceImpl.testFindById()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2014-10-29T22:49:01Z" finished-at="2014-10-29T22:49:01Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2014-11-01T01:43:18Z" finished-at="2014-11-01T01:43:18Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.softserveinc.softtour.service.TestUserServiceImpl.testFindByEmail()]]>
+                <![CDATA[public void com.softserveinc.softtour.service.TestFavoriteServiceImpl.testFindByUser()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="testFindByEmail()[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="testFindByEmail" duration-ms="8" started-at="2014-10-29T22:49:01Z" depends-on-methods="com.softserveinc.softtour.service.TestUserServiceImpl.testFindById" finished-at="2014-10-29T22:49:01Z">
+        <test-method status="PASS" signature="testFindByUser()[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="testFindByUser" duration-ms="122" started-at="2014-11-01T01:43:18Z" depends-on-methods="com.softserveinc.softtour.service.TestFavoriteServiceImpl.testFindById" finished-at="2014-11-01T01:43:18Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testFindByEmail -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2014-10-29T22:49:01Z" finished-at="2014-10-29T22:49:01Z">
+        </test-method> <!-- testFindByUser -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2014-11-01T01:43:18Z" finished-at="2014-11-01T01:43:18Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.softserveinc.softtour.service.TestUserServiceImpl.testFindByEmail()]]>
+                <![CDATA[public void com.softserveinc.softtour.service.TestFavoriteServiceImpl.testFindByUser()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2014-10-29T22:49:01Z" finished-at="2014-10-29T22:49:01Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2014-11-01T01:43:18Z" finished-at="2014-11-01T01:43:18Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.softserveinc.softtour.service.TestUserServiceImpl.testFindByNameOrEmail()]]>
+                <![CDATA[public void com.softserveinc.softtour.service.TestFavoriteServiceImpl.testFindByUserAndTour()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="testFindByNameOrEmail()[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="testFindByNameOrEmail" duration-ms="160" started-at="2014-10-29T22:49:01Z" depends-on-methods="com.softserveinc.softtour.service.TestUserServiceImpl.testFindByEmail" finished-at="2014-10-29T22:49:01Z">
+        <test-method status="PASS" signature="testFindByUserAndTour()[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="testFindByUserAndTour" duration-ms="109" started-at="2014-11-01T01:43:18Z" depends-on-methods="com.softserveinc.softtour.service.TestFavoriteServiceImpl.testFindByUser" finished-at="2014-11-01T01:43:18Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testFindByNameOrEmail -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2014-10-29T22:49:01Z" finished-at="2014-10-29T22:49:01Z">
+        </test-method> <!-- testFindByUserAndTour -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2014-11-01T01:43:18Z" finished-at="2014-11-01T01:43:18Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.softserveinc.softtour.service.TestUserServiceImpl.testFindByNameOrEmail()]]>
+                <![CDATA[public void com.softserveinc.softtour.service.TestFavoriteServiceImpl.testFindByUserAndTour()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="testUpdate()[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="testUpdate" duration-ms="89" started-at="2014-10-29T22:49:01Z" depends-on-methods="com.softserveinc.softtour.service.TestUserServiceImpl.testFindByNameOrEmail" finished-at="2014-10-29T22:49:01Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testUpdate -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2014-10-29T22:49:01Z" finished-at="2014-10-29T22:49:01Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void com.softserveinc.softtour.service.TestUserServiceImpl.testUpdate()]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2014-10-29T22:49:01Z" finished-at="2014-10-29T22:49:01Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void com.softserveinc.softtour.service.TestUserServiceImpl.testUpdate()]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="testDelete()[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="testDelete" duration-ms="37" started-at="2014-10-29T22:49:01Z" depends-on-methods="com.softserveinc.softtour.service.TestUserServiceImpl.testUpdate" finished-at="2014-10-29T22:49:01Z">
+        <test-method status="PASS" signature="testDelete()[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="testDelete" duration-ms="187" started-at="2014-11-01T01:43:18Z" depends-on-methods="com.softserveinc.softtour.service.TestFavoriteServiceImpl.testFindByUserAndTour" finished-at="2014-11-01T01:43:18Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testDelete -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2014-10-29T22:49:01Z" finished-at="2014-10-29T22:49:01Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2014-11-01T01:43:18Z" finished-at="2014-11-01T01:43:18Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.softserveinc.softtour.service.TestUserServiceImpl.testDelete()]]>
+                <![CDATA[public void com.softserveinc.softtour.service.TestFavoriteServiceImpl.testDelete()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2014-10-29T22:49:01Z" finished-at="2014-10-29T22:49:01Z">
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2014-11-01T01:43:18Z" finished-at="2014-11-01T01:43:18Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.softserveinc.softtour.service.TestUserServiceImpl.testDelete()]]>
+                <![CDATA[public void com.softserveinc.softtour.service.TestFavoriteServiceImpl.testDelete()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.softserveinc.softtour.service.TestUserServiceImpl@3132c615]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2014-10-29T22:49:01Z" finished-at="2014-10-29T22:49:01Z">
+        <test-method status="PASS" signature="deleteTestData()[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="deleteTestData" is-config="true" duration-ms="331" started-at="2014-11-01T01:43:18Z" finished-at="2014-11-01T01:43:19Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- deleteTestData -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.softserveinc.softtour.service.TestFavoriteServiceImpl@4ece3b01]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2014-11-01T01:43:19Z" finished-at="2014-11-01T01:43:19Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestClass -->
-      </class> <!-- com.softserveinc.softtour.service.TestUserServiceImpl -->
+      </class> <!-- com.softserveinc.softtour.service.TestFavoriteServiceImpl -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

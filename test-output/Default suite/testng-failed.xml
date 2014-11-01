@@ -3,22 +3,17 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.softserveinc.softtour.service.TestUserServiceImpl">
+      <class name="com.softserveinc.softtour.parser.TestTrainParser">
         <methods>
-          <include name="createNewUser"/>
-          <include name="testFindByEmail"/>
           <include name="springTestContextAfterTestClass"/>
           <include name="springTestContextBeforeTestClass"/>
           <include name="springTestContextBeforeTestMethod"/>
-          <include name="testUpdate"/>
           <include name="springTestContextPrepareTestInstance"/>
-          <include name="testDelete"/>
           <include name="springTestContextAfterTestMethod"/>
-          <include name="testFindByNameOrEmail"/>
-          <include name="testFindById"/>
-          <include name="testSave"/>
+          <include name="testParseRoutes"/>
+          <include name="createDocument"/>
         </methods>
-      </class> <!-- com.softserveinc.softtour.service.TestUserServiceImpl -->
+      </class> <!-- com.softserveinc.softtour.parser.TestTrainParser -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
