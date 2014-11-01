@@ -1,7 +1,6 @@
 package com.softserveinc.softtour.entity;
 
 import javax.persistence.*;
-
 import java.math.BigDecimal;
 
 @Entity
@@ -185,90 +184,44 @@ public class Hotel {
                 '}';
     }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((cleanliness == null) ? 0 : cleanliness.hashCode());
-		result = prime * result + ((comfort == null) ? 0 : comfort.hashCode());
-		result = prime * result + feedbackNum;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((imgUrl == null) ? 0 : imgUrl.hashCode());
-		result = prime * result
-				+ ((itTourId == null) ? 0 : itTourId.hashCode());
-		result = prime * result
-				+ ((location == null) ? 0 : location.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((rating == null) ? 0 : rating.hashCode());
-		result = prime * result + ((region == null) ? 0 : region.hashCode());
-		result = prime * result + stars;
-		result = prime * result
-				+ ((valueForMoney == null) ? 0 : valueForMoney.hashCode());
-		return result;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Hotel other = (Hotel) obj;
-		if (cleanliness == null) {
-			if (other.cleanliness != null)
-				return false;
-		} else if (!cleanliness.equals(other.cleanliness))
-			return false;
-		if (comfort == null) {
-			if (other.comfort != null)
-				return false;
-		} else if (!comfort.equals(other.comfort))
-			return false;
-		if (feedbackNum != other.feedbackNum)
-			return false;
-		if (id != other.id)
-			return false;
-		if (imgUrl == null) {
-			if (other.imgUrl != null)
-				return false;
-		} else if (!imgUrl.equals(other.imgUrl))
-			return false;
-		if (itTourId == null) {
-			if (other.itTourId != null)
-				return false;
-		} else if (!itTourId.equals(other.itTourId))
-			return false;
-		if (location == null) {
-			if (other.location != null)
-				return false;
-		} else if (!location.equals(other.location))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (rating == null) {
-			if (other.rating != null)
-				return false;
-		} else if (!rating.equals(other.rating))
-			return false;
-		if (region == null) {
-			if (other.region != null)
-				return false;
-		} else if (!region.equals(other.region))
-			return false;
-		if (stars != other.stars)
-			return false;
-		if (valueForMoney == null) {
-			if (other.valueForMoney != null)
-				return false;
-		} else if (!valueForMoney.equals(other.valueForMoney))
-			return false;
-		return true;
-	}
-    
+        Hotel hotel = (Hotel) o;
+
+        if (feedbackNum != hotel.feedbackNum) return false;
+        if (id != hotel.id) return false;
+        if (stars != hotel.stars) return false;
+        if (cleanliness != null ? !cleanliness.equals(hotel.cleanliness) : hotel.cleanliness != null) return false;
+        if (comfort != null ? !comfort.equals(hotel.comfort) : hotel.comfort != null) return false;
+        if (imgUrl != null ? !imgUrl.equals(hotel.imgUrl) : hotel.imgUrl != null) return false;
+        if (!itTourId.equals(hotel.itTourId)) return false;
+        if (location != null ? !location.equals(hotel.location) : hotel.location != null) return false;
+        if (!name.equals(hotel.name)) return false;
+        if (rating != null ? !rating.equals(hotel.rating) : hotel.rating != null) return false;
+        if (!region.equals(hotel.region)) return false;
+        if (valueForMoney != null ? !valueForMoney.equals(hotel.valueForMoney) : hotel.valueForMoney != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + name.hashCode();
+        result = 31 * result + stars;
+        result = 31 * result + feedbackNum;
+        result = 31 * result + (rating != null ? rating.hashCode() : 0);
+        result = 31 * result + (comfort != null ? comfort.hashCode() : 0);
+        result = 31 * result + (cleanliness != null ? cleanliness.hashCode() : 0);
+        result = 31 * result + (location != null ? location.hashCode() : 0);
+        result = 31 * result + (valueForMoney != null ? valueForMoney.hashCode() : 0);
+        result = 31 * result + (imgUrl != null ? imgUrl.hashCode() : 0);
+        result = 31 * result + itTourId.hashCode();
+        result = 31 * result + region.hashCode();
+        return result;
+    }
 }

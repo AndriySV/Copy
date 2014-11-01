@@ -105,10 +105,5 @@ public class Favorite {
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "Favorite [id=" + id + ", date=" + date + ", user=" + user
-				+ ", tour=" + tour + "]";
-	}
+    
 }

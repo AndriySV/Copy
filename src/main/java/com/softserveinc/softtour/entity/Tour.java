@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Arrays;
 
 @Entity
 @Table(name = "Tour")
@@ -51,10 +52,10 @@ public class Tour {
     @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
 
+    @Transient
+    private String[] itTourId = new String[2];
 
-
-    public Tour() {
-    }
+    public Tour() {}
 
     public Tour(Date date, int days, String departureCity,
                 Time departureTime, BigDecimal price, Hotel hotel, Food food) {
@@ -156,6 +157,14 @@ public class Tour {
         this.hotel = hotel;
     }
 
+    public String[] getItTourId() {
+        return itTourId;
+    }
+
+    public void setItTourId(String[] itTourId) {
+        this.itTourId = itTourId;
+    }
+
     @Override
     public String toString() {
         return "Tour{" +
@@ -185,6 +194,7 @@ public class Tour {
 		result = prime * result + ((food == null) ? 0 : food.hashCode());
 		result = prime * result + ((hotel == null) ? 0 : hotel.hashCode());
 		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + Arrays.hashCode(itTourId);
 		result = prime * result + ((price == null) ? 0 : price.hashCode());
 		result = prime * result
 				+ ((roomType == null) ? 0 : roomType.hashCode());
@@ -229,6 +239,8 @@ public class Tour {
 		} else if (!hotel.equals(other.hotel))
 			return false;
 		if (id != other.id)
+			return false;
+		if (!Arrays.equals(itTourId, other.itTourId))
 			return false;
 		if (price == null) {
 			if (other.price != null)

@@ -76,45 +76,27 @@ public class Region {
                 '}';
     }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((country == null) ? 0 : country.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result
-				+ ((itTourId == null) ? 0 : itTourId.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Region other = (Region) obj;
-		if (country == null) {
-			if (other.country != null)
-				return false;
-		} else if (!country.equals(other.country))
-			return false;
-		if (id != other.id)
-			return false;
-		if (itTourId == null) {
-			if (other.itTourId != null)
-				return false;
-		} else if (!itTourId.equals(other.itTourId))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
-	}
-    
+        Region region = (Region) o;
+
+        if (id != region.id) return false;
+        if (!country.equals(region.country)) return false;
+        if (!itTourId.equals(region.itTourId)) return false;
+        if (!name.equals(region.name)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + name.hashCode();
+        result = 31 * result + itTourId.hashCode();
+        result = 31 * result + country.hashCode();
+        return result;
+    }
 }
