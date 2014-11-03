@@ -9,7 +9,7 @@ import com.softserveinc.softtour.service.RoleService;
 import com.softserveinc.softtour.service.UserService;
 
 @Component
-public class Test {
+public class TestScheduled {
 
 			@Autowired
 			private LogService logService;  
