@@ -8,9 +8,9 @@
         <div class="form-group">
             <div class="col-sm-6">
                 <p>Країна:</p>
-                <select class="form-control" id="country" name="country">
+                <select class="form-control" id="country" name="country" onchange="getRegion()">
 
-                <script id="selectTemplate" type="text/x-jquery-tmpl">
+                <script id="selectCountry" type="text/x-jquery-tmpl">
                     <option id="\${itTourId}" name="optionCountry">\${name}</option>
                 </script>
                 </select>
@@ -18,7 +18,9 @@
             <div class="col-sm-6">
                 <p>Регіон:</p>
                 <select class="form-control" id="region" name="region">
-                    <option value="N/A">N/A</option>
+                <script id="selectRegion" type="text/x-jquery-tmpl">
+                    <option id="option">\${name}</option>
+                </script>
                 </select>
             </div>
             <div class="col-sm-12">
@@ -28,11 +30,11 @@
                     <label>2*</label>
                     <input type="checkbox" value="2" id="twoStar" name="twoStar">
                     <label>3*</label>
-                    <input type="checkbox" value="3" id="threeStar" name="threeStar">
+                    <input type="checkbox" value="3" id="threeStar" name="threeStar" checked>
                     <label>4*</label>
-                    <input type="checkbox" value="4" id="fourStar" name="fourStar">
+                    <input type="checkbox" value="4" id="fourStar" name="fourStar" checked>
                     <label>5*</label>
-                    <input type="checkbox" value="5" id="fiveStar" name="fiveStar"><br>
+                    <input type="checkbox" value="5" id="fiveStar" name="fiveStar" checked><br>
                     <span id="checkHelp" style="color: red"></span>
 
             </div>
@@ -41,28 +43,28 @@
 
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="HB" id="foodOne" name="foodOne">
+                        <input type="checkbox" value="HB" id="foodOne" name="foodOne" checked>
                         HB
                     </label>
                     <label>
-                        <input type="checkbox" value="BB" id="foodTwo" name="foodTwo">
+                        <input type="checkbox" value="BB" id="foodTwo" name="foodTwo" checked>
                         BB
                     </label>
                     <label>
-                        <input type="checkbox" value="FB" id="foodThree" name="foodThree">
+                        <input type="checkbox" value="FB" id="foodThree" name="foodThree" checked>
                         FB
                     </label>
                     <br>
                     <label>
-                        <input type="checkbox" value="AI" id="foodFour" name="foodFour">
+                        <input type="checkbox" value="AI" id="foodFour" name="foodFour" checked>
                         AI
                     </label>
                     <label>
-                        <input type="checkbox" value="UAI" id="foodFive" name="foodFive">
+                        <input type="checkbox" value="UAI" id="foodFive" name="foodFive" checked>
                         UAI
                     </label>
                     <label>
-                        <input type="checkbox" value="RO" id="foodSix" name="foodSix">
+                        <input type="checkbox" value="RO" id="foodSix" name="foodSix" checked>
                         RO
                     </label><br>
                     <span id="checkHelp2" style="color: red"></span>
@@ -76,7 +78,7 @@
                     <p>Дорослі:</p>
                     <select class="form-control" id="adults" name="adults">
                         <option>1</option>
-                        <option>2</option>
+                        <option selected>2</option >
                         <option>3</option>
                         <option>4</option>
                         <option>5</option>
@@ -119,7 +121,7 @@
                         <option>3</option>
                         <option>4</option>
                         <option>5</option>
-                        <option>6</option>
+                        <option selected>6</option>
                         <option>7</option>
                         <option>8</option>
                         <option>9</option>
@@ -147,14 +149,14 @@
                         <option>4</option>
                         <option>5</option>
                         <option>6</option>
-                        <option selected>7</option>
+                        <option>7</option>
                         <option>8</option>
                         <option>9</option>
                         <option>10</option>
                         <option>11</option>
                         <option>12</option>
                         <option>13</option>
-                        <option>14</option>
+                        <option selected>14</option>
                         <option>15</option>
                         <option>16</option>
                         <option>17</option>
@@ -181,7 +183,7 @@
             </div>    
         </div>
         </div>
-        <input type="button" class="btn btn-primary btn-lg" value="Пошук" onclick="return showResults(this.form)">
+        <input type="button" class="btn btn-primary btn-lg" value="Пошук" onclick="return showResults(this.form,1)">
     </form>
 </div>
 
@@ -231,7 +233,7 @@
     <div style="margin-top: 50px"></div>
 <div class="col-md-12">
 
-    <div id="searchResult">
+    <div id="searchResult" class="col-lg-12" style="text-align: center">
 
     </div>
 
@@ -240,94 +242,188 @@
 </body>
     <!--input type="button" value="Search" onclick="showResults()"-->
     <script id="searchTemplate" type="text/x-jquery-tmpl">
-        <div class="panel panel-default" id="panel-favorite\${id}">
-                <div class="panel-heading" id="results\${id}">
-                         <span data-toggle="collapse" href="#panel-element-f\${id}" onclick="saveHistoryRecord(\${id}),loadAddInfo(\${id})">
+        <div class="panel panel-default tourCollapseTitle" id="panel-favorite\${id}">
+    <div class="panel-heading" data-toggle="collapse" href="#panel-element-f\${id}">
+        <div id="results\${id}">
+                         <span data-toggle="collapse" href="#panel-element-f\${id}" onclick="loadAddInfo(\${id})">
                          <span class="tabTitleFont cursor-pointer" >Країна: </span>
-                         <span id="tourCountry-f\${id}" class="tabulatedTitle cursor-pointer">\${hotel.region.country.name}</span>
+                         <span id="tourCountry-f\${id}" class="tabulatedTitle cursor-pointer">\${tour.hotel.region.country.name}</span>
                          <span class="tabTitleFont cursor-pointer" >Тривалість туру: </span>
-                         <span id="tourDays-f\${id}" class="tabulatedTitle cursor-pointer">\${days} Днів</span>
+                         <span id="tourDays-f\${id}" class="tabulatedTitle cursor-pointer">\${tour.days} Днів</span>
                          <span class="tabTitleFont cursor-pointer">Вартість туру: </span>
-                         <span id="tourPrice-f\${id}" class="tabulatedTitle cursor-pointer">\${price} $</span>
+                         <span id="tourPrice-f\${id}" class="tabulatedTitle cursor-pointer">\${tour.price} $</span>
                          <span class="tabTitleFont cursor-pointer">Харчування: </span>
-                         <span id="tourFood-f\${id}" class="tabulatedTitle cursor-pointer">\${food}</span>
+                         <span id="tourFood-f\${id}" class="tabulatedTitle cursor-pointer">\${tour.food}</span>
                          <span class="tabTitleFont cursor-pointer">Дата вильоту: </span>
-                         <span id="tourDepartureDate-f\${id}" class="tabulatedTitle cursor-pointer">\${date}</span></span>
+                         <span id="tourDepartureDate-f\${id}" class="tabulatedTitle cursor-pointer">\${tour.date}</span></span>
                           <security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-        <span id="deleteButtonF\${id}" data-role="button" class="pull-right" ><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(\${id})" data-toogle="tooltip" data-placemant="top" title="Додати до улюблених"></i></span>
+        <span id="deleteButtonF\${id}" data-role="button" class="pull-right" ><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(\${id})"></i></span>
     </security:authorize>
                 </div>
-                    <div id="panel-element-f\${id}" class="panel-collapse collapse">
-                    <div class="panel-body">
-                       <div class="col-sm-4">
-                        <div class="input-group backdown">
-                            <div id="imgHold\${id}"></div>
-                        </div>
+    </div>
+    <div id="panel-element-f\${id}" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <div class="col-sm-4">
+                <div class="input-group backdown">
+                        <div id="imgHold\${id}"></div>
+                    <div>
                     </div>
-
-                    <div class="col-sm-7">
-                        <strong class="text-info pull-left hotelTitle" id="hotel\${id}">
-                            \${hotel.name}&nbsp;
-                        </strong>
-                        <span>
-                            <input id="stars" value=\${hotel.stars} type="number" class="rating" min=0 max=5 step=1 data-size="xs"
-                                data-show-clear="false" data-show-caption="false" readonly="true" width="100px">
-                        </span>
-                    </div>
-
-                    <div class="col-sm-3">
-                        <h4>Дорослі</h4>
-                        <h4>Діти</h4>
-                        <h4>Рейтинг готелю</h4>
-                        <h4>Тип номерів</h4>
-                        <h4>Місто вильоту</h4>
-                    </div>
-
-                    <div class="col-sm-3">
-                        <h4 id="adultsAmount\${id}">\${adultAmount}</h4>
-                        <h4 id="childrenAmount\${id}">\${childrenAmount}</h4>
-                        <h4 id="hotelRaiting\${id}">-</h4>
-                        <h4 id="hotelRoomType\${id}">\${roomType}</h4>
-                        <h4 id="departyreCity\${id}">\${departureCity}</h4>
-                    </div>
-
-
-
-                      </div>
-
                 </div>
             </div>
-            <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'/>
-</script>
-<script type="text/javascript">
 
-    var regions = new Array(
-            "Дахаб,Макаді Бей,Марса Алам",
-            "Анталія",
-            "Аттика"
-    );
-    function getRegions(index){
-        var aRegions = regions[index];
-        return aRegions.split(",");
-    }
-    function makeSelect(index){
-        var currentRegion = getRegions(index);
-        var currentRegionCnt = currentRegion.length;
-        var regionList = document.getElementById("region");
-        var regionListCnt = regionList.options.length;
-        regionList.length=0;
-        for(i = 0; i < currentRegionCnt; i++){
-            if (document.createElement){
-                var newRegionList = document.createElement("OPTION");
-                newRegionList.text = currentRegion[i];
-                newRegionList.value = currentRegion[i];
-                (regionList.options.add) ? regionList.options.add(newRegionList) : regionList.add(newRegionList, null);
-            } else {
-                regionList.options[i] = new Option(currentRegion[i], currentRegion[i], false, false);
-            }
-        }
-    }
-    makeSelect(document.getElementById("country").selectedIndex);
+            <div class="col-sm-7">
+                <strong class="text-info pull-left hotelTitle" id="hotel\${id}">
+                    \${tour.hotel.name}&nbsp;
+                </strong>
+                        <span>
+                            <input id="stars" value=\${tour.hotel.stars} type="number" class="rating" min=0 max=5 step=1
+                                   data-size="xs"
+                                   data-show-clear="false" data-show-caption="false" readonly="true" width="100px">
+                        </span>
+            </div>
+
+            <div class="col-sm-3">
+                <h4>Дорослі</h4>
+                <h4>Діти</h4>
+                <h4>Рейтинг готелю</h4>
+                <h4>Тип номерів</h4>
+                <h4>Місто вильоту</h4>
+            </div>
+
+            <div class="col-sm-3">
+                <h4 id="adultsAmount\${id}">\${tour.adultAmount}</h4>
+                <h4 id="childrenAmount\${id}">\${tour.childrenAmount}</h4>
+                <h4 id="hotelRaiting\${id}">-</h4>
+                <h4 id="hotelRoomType\${id}">\${tour.roomType}</h4>
+                <h4 id="departyreCity\${id}">\${tour.departureCity}</h4>
+            </div>
+
+            <div class="col-sm-1">
+
+                <!-- Button trigger modal -->
+
+                <button type="button" class="btn btn-info btn-TourOrder" onclick="showTourOrderFormF(\${tour.id})">
+                    <span class="glyphicon glyphicon-briefcase"></span>
+                    <h4>Замовити тур!</h4>
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="orderModal-f\${tour.id}" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel\${tour.id}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span
+                                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel\${tour.id}">Введіть дані</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <form:form id="orderTourForm\${tour.id}" class="form-horizontal" action="" method="POST"
+                                           data-toggle="validator" role="form">
+
+    <fieldset>
+
+    <!-- Name input-->
+    <div class="form-group">
+    <label class="col-md-4 control-label" for="name">Ім'я</label>
+
+    <div class="col-md-5">
+    <input type="text" name="name" id="name" class="form-control input-md"
+    pattern="\b[A-Za-z0-9]{2,30}\b"
+    placeholder="Bід 2 до 30 символів"
+    data-error="Ви ввели некоректне ім'я !"
+    required="required"
+    />
+    </div>
+    </div>
+
+    <!-- Email input-->
+    <div class="form-group">
+    <label class="col-md-4 control-label" for="email">Email</label>
+
+    <div class="col-md-5">
+    <input type="email" name="email" id="email"
+    class="form-control input-md"
+    pattern="\b(?!.{31})([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})\b"
+    placeholder="Bведіть email"
+    data-error="Ви ввели некоректний email !"
+    required="required"
+    />
+
+    <div class="help-block with-errors"></div>
+    <errors path="email" cssClass="error"/>
+
+    </div>
+    </div>
+
+    <!-- City input-->
+    <div class="form-group">
+    <label class="col-md-4 control-label" for="city">Місто</label>
+
+    <div class="col-md-5">
+    <input type="text" name="city" id="city" class="form-control input-md"
+    pattern="\b[A-Za-z]{2,30}\b"
+    placeholder="Місто"
+    data-error="Введіть місто!"
+    required="required"
+    />
+    </div>
+    </div>
+
+    <!-- Phone input-->
+    <div class="form-group">
+    <label class="col-md-4 control-label" for="phone">Номер телефону</label>
+
+    <div class="col-md-5">
+    <input type="text" name="phone" id="phone" class="form-control input-md"
+    pattern="[\+]?[0-9]{4,19}\b"
+    placeholder="Введіть номер телефону"
+    data-error="Ви ввели некоректний номер телефону !">
+
+    <div class="help-block with-errors"></div>
+    <errors path="email" cssClass="error"/>
+    </div>
+    </div>
+
+    <div class="form-group">
+    <div class="col-md-5"></div>
+    <div class="col-md-3">
+    <button type="submit" name="submit" class="btn btn-primary">
+    <span class="glyphicon glyphicon-ok"></span>
+    Замовити
+    </button>
+    </div>
+    </div>
+
+    </fieldset>
+</form:form>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <form role="form" class="form-inline">
+                <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse"
+                        data-target="#transitInfo-All-F\${tour.id}" onclick="getAllTransitF(\${tour.id},\${id})">
+                    <span class="glyphicon glyphicon-road"></span>
+                    <span class="glyphicon glyphicon-plane"></span>
+                    &nbsp; Як добратися з ... ?
+                </button>
+                <div class="form-group">
+                    <select id="cityFrom-F\${id}" class="select2-offscreen cityFromSelector">
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </script>
+
 
 

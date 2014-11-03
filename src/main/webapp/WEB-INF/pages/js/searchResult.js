@@ -1,14 +1,16 @@
 $(document).ready(function () {})
 
 var queryObj = {};
+queryObj.numberOfPage = 0;
+var forms = '';
 
-function showResults(form){
+function showResults(form,numberOfPage){
 
     if(checkHotel()&&checkFood()&&checkDate(form["dateFrom"])&&checkDate(form["dateTo"])&&checkPrice(form["priceFrom"])&&checkPrice(form["priceTo"])){
+        forms = form;
         $('#searchResult').empty();
         showModal();
         $('#searchResult').append('<div class="col-md-12" id="loading"><img src="img/preloader.gif"></div><br>');
-        queryObj.optionCountry = $("#optionCountry").attr('id');
         queryObj.country = $("#country").val();
         queryObj.region = $("#region").val();
         if ($("#twoStar").prop('checked'))queryObj.twoStar = $("#twoStar").val();
@@ -29,6 +31,7 @@ function showResults(form){
         queryObj.nightTo = $("#nightTo").val();
         queryObj.priceFrom = $("#priceFrom").val();
         queryObj.priceTo = $("#priceTo").val();
+        queryObj.numberOfPage = numberOfPage;
 
         $.ajax({
             url: "/search/getTour",
@@ -43,11 +46,30 @@ function showResults(form){
                     value.id = new_id;
                     new_id++;
                 })
+                var toursForTemplate = [];
+
+                $.each(data, function( index, value ) {
+
+                    var currentTour = {};
+                    currentTour.id = index;
+                    currentTour.tour = value;
+
+                    toursForTemplate.push(currentTour);
+
+                })
                 favData = data;
                 console.log(data);
                 $('#searchResult').empty();
                 $('#searchResult').append('<p align="center"><h3>Результати пошуку:</h3></p>');
-                $('#searchTemplate').tmpl(data).appendTo('#searchResult');
+                $('#searchTemplate').tmpl(toursForTemplate).appendTo('#searchResult');
+                $('#searchResult').append(
+                        "<script type='text/javascript' src=\"js/star-rating.min.js\"/>"+
+                        "<script type='text/javascript' src=\"js/bootstrap-table.min.js\"/>"+
+                        "<script type='text/javascript' src=\"js/cityFrom.js\"/>"+
+                        "<script type='text/javascript' src=\"js/transitOrderButton.js\"/>"+
+                        "<script type='text/javascript' src=\"js/select2.min.js\"/>");
+                $('#searchResult').append('<button type="button" class="btn btn-default pull-left" onclick="expandParseTwo(-1)">Попередні</button>' +
+                    '<button type="button" class="btn btn-default pull-right" onclick="expandParseTwo(1)">Наступні</button>');
             }
         });
         return true;
@@ -56,3 +78,10 @@ function showResults(form){
     }
 }
 
+function expandParseTwo (incDec){
+    if (queryObj.numberOfPage!=1||incDec!=-1){
+        var numb = queryObj.numberOfPage+incDec;
+        showResults(forms, numb);
+    }
+
+}
