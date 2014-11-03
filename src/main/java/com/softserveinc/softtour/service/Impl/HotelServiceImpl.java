@@ -18,8 +18,8 @@ public class HotelServiceImpl implements HotelService {
     private HotelRepository hotelRepository;
 
     @Override
-    public Hotel save(Hotel hotel) {
-        return hotelRepository.saveAndFlush(hotel);
+    public void save(Hotel hotel) {
+        hotelRepository.saveAndFlush(hotel);
     }
 
     @Override
@@ -52,11 +52,12 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public void setZero (Hotel hotel) {
-        hotel.setCleanliness(BigDecimal.valueOf(0));
-        hotel.setComfort(BigDecimal.valueOf(0));
-        hotel.setRating(BigDecimal.valueOf(0));
-        hotel.setLocation(BigDecimal.valueOf(0));
-        hotel.setValueForMoney(BigDecimal.valueOf(0));
+    public void delete(long id) {
+        hotelRepository.delete(id);
+    }
+
+    @Override
+    public Hotel findByItTourId(long itTourId) {
+        return hotelRepository.findByItTourId(itTourId);
     }
 }

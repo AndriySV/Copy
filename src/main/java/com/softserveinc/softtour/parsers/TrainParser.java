@@ -9,6 +9,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.softserveinc.softtour.bean.TrainRoute;
 import com.softserveinc.softtour.util.NoRoutesException;
@@ -19,6 +20,7 @@ import com.softserveinc.softtour.util.DateValidator;
  * @author Andrii
  * Parses the site http://ticket.turistua.com/
  */
+@Component
 public class TrainParser {
 	private static final int MAX_NUMER_OF_ATTEMPTS = 15;
 	private static final int CONNECTION_TIMEOUT = 5000; 
@@ -29,6 +31,9 @@ public class TrainParser {
 	private String departureTime;
 	private String previousDate;
 	
+	private String departureCity;
+	private String arrivalCity;
+	
 	private TrainRoute trainRoute;
 	private ArrayList<TrainRoute> routesList;
 	private TrainParserUtil trainParserUtil;
@@ -36,6 +41,13 @@ public class TrainParser {
 	
 	private boolean isSetDepatureDate = true;
 	private boolean isSetPreviousDate = true;
+
+	/**
+	 * Sets the data for the testing this class  
+	 */
+	public TrainParser() {
+		this("Київ", "Львів", "2014-11-11", "17:00");
+	}
 	
 	/**
 	 * Sets departureDate and departureTime.
@@ -50,12 +62,12 @@ public class TrainParser {
 	public TrainParser(String departureCity, String arrivalCity, String departureDate, String departureTime) {
 		this.departureDate = departureDate;
 		this.departureTime = departureTime;
+		this.departureCity = departureCity;
+		this.arrivalCity = arrivalCity;
 		
 		trainParserUtil = new TrainParserUtil();
 		dateValidator = new DateValidator();
 		routesList = new ArrayList<TrainRoute>();
-		
-		url = trainParserUtil.createUrl(departureCity, arrivalCity, departureDate);
 	}
 	
 	/**
@@ -63,6 +75,7 @@ public class TrainParser {
 	 * or empty list if the routes no found
 	 */
 	public ArrayList<TrainRoute> getRoutes() {
+		url = trainParserUtil.createUrl(departureCity, arrivalCity, departureDate);
 		try {
 			parse();
 			
@@ -85,7 +98,7 @@ public class TrainParser {
 		while (i < MAX_NUMER_OF_ATTEMPTS) {
 			++i;
 			try {
-				document = Jsoup.connect("h"+ url).timeout(CONNECTION_TIMEOUT).get();
+				document = Jsoup.connect(url).timeout(CONNECTION_TIMEOUT).get();
 			} catch (IOException e) {
 				LOG.error(e.getMessage() + "Connection error. Cannot connect to the site http://ticket.turistua.com/");
 				continue;
@@ -100,7 +113,7 @@ public class TrainParser {
 	 * @param document - it's document, which will be parsed
 	 * @throws NoRoutesException if the routes no found
 	 */
-	private void parseRoutes(Document document) throws NoRoutesException {
+	public void parseRoutes(Document document) throws NoRoutesException {
 		Element routesTable = null;
 		
 		try{
@@ -114,8 +127,10 @@ public class TrainParser {
 				.getElementsByTag("tbody").get(0);
 			
 			Elements routes = routesTable.select("tr[class]");
+			
 			parseRoute(routes);
 		}catch(NullPointerException e){
+			System.out.println(e.getMessage());
 			throw new NoRoutesException();
 		}
 	}
@@ -241,4 +256,12 @@ public class TrainParser {
 		
 		routesList.add(trainRoute);
 	}
+	
+	/**
+	 * @return the list of the routes
+	 */
+	public ArrayList<TrainRoute> getRoutesList() {
+		return routesList;
+	}
+
 }
