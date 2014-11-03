@@ -62,19 +62,19 @@ public class TestTrainParser extends AbstractTestNGSpringContextTests{
 	}
 	
 	/**
-	 * Creates the routes, which will be the search results of the TrainParser class
+	 * Creates the expected routes
 	 */
 	@BeforeClass
 	private void createExpectedRoutes() {
-		expectedTrainRoute1 = new TrainRoute("111О", "Харків", "Львів", "2014-11-11", "04:08", 
-				"\u00a0"+"09:14", "13:22", "186.39", "618.15");
+		expectedTrainRoute1 = new TrainRoute("111О", "Харків", "Львів", 
+				"2014-11-11", "04:08", "\u00a0"+"09:14", "13:22", "186.39", "618.15");
 		
-		expectedTrainRoute2 = new TrainRoute("741К", "Київ Дарниця", "Трускавець", "2014-11-11", 
-				"06:48", "\u00a0"+"05:11", "11:59", "310.84", " - ");
+		expectedTrainRoute2 = new TrainRoute("741К", "Київ Дарниця", "Трускавець", 
+				"2014-11-11", "06:48", "\u00a0"+"05:11", "11:59", "310.84", " - ");
 	}
 	
 	/**
-	 * Parses the document and checks if the search result equals expected one.
+	 * Parses the document and checks if the search results equals expected results.
 	 */
 	@Test
 	public void testParseRoutes(){
