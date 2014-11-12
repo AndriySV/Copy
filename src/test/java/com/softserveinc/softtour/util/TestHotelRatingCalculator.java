@@ -8,9 +8,9 @@ import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 
-public class TestHotelUtil extends Assert {
+public class TestHotelRatingCalculator extends Assert {
 
-    private HotelUtil hotelUtil = new HotelUtil();
+    private HotelRatingCalculator hotelRatingCalculator = new HotelRatingCalculator();
 
     private Hotel expectedHotel;
     private Hotel hotel;
@@ -42,14 +42,8 @@ public class TestHotelUtil extends Assert {
     }
 
     @Test
-    public void testUpdateHotelRate() {
-        Hotel actualHotel = hotelUtil.updateHotelRate(hotel, cleanliness, comfort, location, valueForMoney);
-        assertEquals(actualHotel.getName(), expectedHotel.getName());
-        assertEquals(actualHotel.getRating(), expectedHotel.getRating());
-        assertEquals(actualHotel.getComfort(), expectedHotel.getComfort());
-        assertEquals(actualHotel.getCleanliness(), expectedHotel.getCleanliness());
-        assertEquals(actualHotel.getLocation(), expectedHotel.getLocation());
-        assertEquals(actualHotel.getValueForMoney(), expectedHotel.getValueForMoney());
-        assertEquals(actualHotel.getFeedbackNum(), expectedHotel.getFeedbackNum());
+    public void testCalculateHotelRate() {
+        Hotel actualHotel = hotelRatingCalculator.calculateHotelRate(hotel, cleanliness, comfort, location, valueForMoney);
+        assertEquals(actualHotel, expectedHotel);
     }
 }

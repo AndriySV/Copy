@@ -1,11 +1,12 @@
 package com.softserveinc.softtour.util;
 
-import com.softserveinc.softtour.entity.Country;
 import com.softserveinc.softtour.entity.Hotel;
-import com.softserveinc.softtour.entity.Region;
 import com.softserveinc.softtour.util.constants.ItTourParserUrlGeneratorConstants;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Set;
 
 public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstants {
     private static StringBuilder BASE_PARAMETERS = new StringBuilder(HTTP).append(ASK).
@@ -75,7 +76,7 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
 
     public static String createSearchUrlByHotel(Hotel hotel, int pageNumber){
         Date dateFrom = new Date();
-        Date dateTo = new Date(dateFrom.getTime() - TEN_DAYS_IN_MILLISECONDS);
+        Date dateTo = new Date(dateFrom.getTime() + TEN_DAYS_IN_MILLISECONDS);
         String generatedDateFromParam =  generateDate(dateFrom);
         String generatedDateToParam = generateDate(dateTo);
 
@@ -198,11 +199,4 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
         return dateBuilder.toString();
     }
 
-    public static void main(String[] args) {
-        Hotel hotel = new Hotel("Adela Hotel", 3, new Region("Стамбул", new Country("Турция")));
-        hotel.setItTourId(59466L);
-        hotel.getRegion().setItTourId(5498L);
-        hotel.getRegion().getCountry().setItTourId(318L);
-        System.out.println(ItTourParserUrlGenerator.createSearchUrlByHotel(hotel, 1));
-    }
 }

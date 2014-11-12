@@ -1,7 +1,7 @@
 package com.softserveinc.softtour.parser;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
@@ -35,6 +35,10 @@ import com.softserveinc.softtour.parsers.TrainParser;
 public class TestTrainParser extends AbstractTestNGSpringContextTests{
 	private static final Logger LOG = LoggerFactory.getLogger(TrainParser.class);
 	
+	private static final String PATH = "/TuristUA.html";
+	private static final String UTF_8 = "UTF-8";
+	private static final String BASE_URL = "http://ticket.turistua.com/";
+
 	@Autowired
 	private TrainParser trainParser;
 	
@@ -53,11 +57,12 @@ public class TestTrainParser extends AbstractTestNGSpringContextTests{
 	 */
 	@BeforeClass
 	private void parseFile(){
-		File file = new File("/TuristUA.html");
+		InputStream inputStream = null; 
 		try {
-			document = Jsoup.parse(file, "UTF-8");
+			inputStream = this.getClass().getResourceAsStream(PATH);
+			document = Jsoup.parse(inputStream, UTF_8, BASE_URL);
 		} catch (IOException e) {
-			LOG.equals(e.getMessage());
+			LOG.error(e.getMessage());
 		}
 	}
 	

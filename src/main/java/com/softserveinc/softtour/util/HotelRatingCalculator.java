@@ -9,11 +9,22 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Component
-public class HotelUtil {
+public class HotelRatingCalculator {
 private static final BigDecimal NUMBER_OF_RATING_CATEGORIES = BigDecimal.valueOf(4);
 
-    public Hotel updateHotelRate(Hotel hotel, BigDecimal cleanliness, BigDecimal comfort,
-                                 BigDecimal location, BigDecimal valueForMoney) {
+
+    /**
+     * calculates new hotel rating
+     *
+     * @param hotel - hotel which will be updated
+     * @param cleanliness - new value from feedback
+     * @param comfort - new value from feedback
+     * @param location - new value from feedback
+     * @param valueForMoney - new value from feedback
+     * @return hotel with updated rating
+     */
+    public Hotel calculateHotelRate(Hotel hotel, BigDecimal cleanliness, BigDecimal comfort,
+                                    BigDecimal location, BigDecimal valueForMoney) {
 
         Integer numOfFeedbacks = hotel.getFeedbackNum();
 
