@@ -14,7 +14,7 @@ import com.softserveinc.softtour.entity.Favorite;
 import com.softserveinc.softtour.service.FavoriteService;
 
 /**
- * @ author Andriy
+ * @author Andriy
  * Processes favorite's data
  */
 @Controller
