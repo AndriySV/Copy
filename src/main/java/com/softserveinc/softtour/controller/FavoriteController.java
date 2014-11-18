@@ -15,8 +15,7 @@ import com.softserveinc.softtour.service.FavoriteService;
 
 /**
  * @author Andriy
- * 
- * Processes favorite's data
+ *  * Processes favorite's data
  */
 @Controller
 @RequestMapping(value="/favorite")
