@@ -28,7 +28,7 @@ public class FavoriteController {
 	private FavoriteService favoriteService;
 
 	/**
-	 * Saves the object user to the table User
+	 * Saves the object user t o the table User
 	 */
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	public String save(Favorite favorite) {
