@@ -270,7 +270,8 @@
                 <version>${tomcat7-maven-plugin-version}</version>
             </plugin>
             
-            <plugin>
+            <!-- Plugin for recompiling database SoftTour  -->
+            <!-- <plugin>
             	<groupId>org.codehaus.mojo</groupId>
             	<artifactId>sql-maven-plugin</artifactId>
            		<version>1.5</version>
@@ -328,7 +329,7 @@
 	                </execution>
            		 </executions>
         	</plugin>
-
+ -->
         </plugins>
     </build>
 </project>
