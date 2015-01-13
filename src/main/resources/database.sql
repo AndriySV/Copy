@@ -1,5 +1,5 @@
 DROP DATABASE IF EXISTS softtour;
-CREATE DATABASE softtour default charset=utf8 COLLATE=utf8_general_ci;
+CREATE DATABASE softtour default character set=utf8 COLLATE=utf8_general_ci;
 
 USE softtour;
 SET NAMES 'utf8';
@@ -149,6 +149,7 @@ CREATE TABLE historyrequest (
   FOREIGN KEY (country_id) REFERENCES country (id)
 
 );
+
 
 CREATE TABLE LOGS (
 	id bigint(20) NOT NULL AUTO_INCREMENT,
