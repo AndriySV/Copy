@@ -24,13 +24,15 @@
         <servlet-version>3.0.1</servlet-version>
         <jsp-version>2.2</jsp-version>
         <jstl-version>1.2</jstl-version>
+
         <junit-version>4.11</junit-version>
+		<testNG-version>6.8.8</testNG-version>
+        <mockito-version>1.10.8</mockito-version>
+        
         <c3p0-version>0.9.2.1</c3p0-version>
         <jackson>1.4.1</jackson>
         <jsoup-version>1.7.3</jsoup-version>
         <apache-tiles-version>3.0.4</apache-tiles-version>
-        <testNG-version>6.8.8</testNG-version>
-        <mockito-version>1.10.8</mockito-version>
         <maven-compiler-plugin-version>3.0</maven-compiler-plugin-version>
         <tomcat7-maven-plugin-version>2.0</tomcat7-maven-plugin-version>
         <org-seleniumhq-selenium>2.43.1</org-seleniumhq-selenium>
@@ -270,7 +272,8 @@
                 <version>${tomcat7-maven-plugin-version}</version>
             </plugin>
             
-            <plugin>
+            <!-- Plugin for recompiling database SoftTour  -->
+            <!-- <plugin>
             	<groupId>org.codehaus.mojo</groupId>
             	<artifactId>sql-maven-plugin</artifactId>
            		<version>1.5</version>
@@ -328,7 +331,7 @@
 	                </execution>
            		 </executions>
         	</plugin>
-
+ -->
         </plugins>
     </build>
 </project>
